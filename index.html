@@ -6,68 +6,76 @@
     <title>PrecificEcom - Pro Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Variáveis de Tema Escuro (Padrão) */
         :root {
             --bg: #121214; --card: #1c1c1e; --orange: #ff6600;
             --white: #ffffff; --green: #22c55e; --red: #ef4444;
             --blue: #3b82f6; --gray: #3d3d3d; --input-bg: #252529;
-            --text-gray: #888888;
+            --text-gray: #888888; --text-main: #ffffff;
         }
 
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--white); margin: 0; padding: 20px; font-size: 14px; line-height: 1.5; }
+        /* Variáveis de Tema Claro */
+        [data-theme="light"] {
+            --bg: #f0f2f5; --card: #ffffff; --white: #121214;
+            --gray: #d1d5db; --input-bg: #f9fafb;
+            --text-gray: #6b7280; --text-main: #1f2937;
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 20px; font-size: 14px; line-height: 1.5; transition: background 0.3s, color 0.3s; }
         .container { max-width: 1050px; margin: 0 auto; }
         
         .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--orange); padding-bottom: 15px; margin-bottom: 30px; gap: 10px; flex-wrap: wrap; }
-        .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; }
+        .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; color: var(--text-main); }
         .brand span { color: var(--orange); }
-        .by-eron { font-size: 0.75rem; color: var(--text-gray); display: block; margin-top: 2px; font-weight: 600; }
 
         h3 { color: var(--orange); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 20px; }
 
         .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
 
-        .card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); margin-bottom: 20px; }
+        .card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        label { display: block; font-size: 0.7rem; color: #aaa; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
+        label { display: block; font-size: 0.7rem; color: var(--text-gray); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
         
-        input { width: 100%; background: #000; border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: #fff; outline: none; box-sizing: border-box; font-size: 1rem; }
+        input, select { width: 100%; background: var(--input-bg); border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: var(--text-main); outline: none; font-size: 1rem; box-sizing: border-box; }
         input:focus { border-color: var(--orange); }
 
         .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-        .btn-sug { flex: 1; background: #333; border: 1px solid var(--orange); color: var(--white); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 0.8rem; }
-        .btn-sug:hover { background: var(--orange); color: #000; }
+        .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 0.8rem; }
+        .btn-sug:hover { background: var(--orange); color: white; }
 
-        .result-main { background: #000; border: 2px solid var(--orange); border-radius: 20px; padding: 30px; text-align: center; }
-        .editable-price-container { background: var(--input-bg); border-radius: 12px; padding: 10px; margin: 15px auto; max-width: 250px; border: 1px solid var(--gray); }
-        .editable-price-container input { background: transparent; border: none; text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--white); padding: 0; margin: 0; width: 100%; }
+        .result-main { background: var(--input-bg); border: 2px solid var(--orange); border-radius: 20px; padding: 30px; text-align: center; }
+        .editable-price-container { background: var(--card); border-radius: 12px; padding: 10px; margin: 15px auto; max-width: 250px; border: 1px solid var(--gray); }
+        .editable-price-container input { background: transparent; border: none; text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--text-main); padding: 0; margin: 0; width: 100%; }
 
         .big-price { font-size: 3.5rem; font-weight: 800; margin: 10px 0; letter-spacing: -2px; }
         .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray); }
         
-        .comp-bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 20px 0; background: #333; }
+        .comp-bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 20px 0; background: var(--gray); }
         .comp-item { height: 100%; transition: width 0.4s ease; }
 
         .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 25px; }
         .proj-card { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--gray); text-align: center; }
-        .meta-text { display: block; font-size: 0.7rem; color: #888; margin-top: 8px; font-weight: 600; }
+        .meta-text { display: block; font-size: 0.7rem; color: var(--text-gray); margin-top: 8px; font-weight: 600; }
 
         .btn-action { padding: 12px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; text-transform: uppercase; transition: 0.2s; text-decoration: none; display: inline-block; text-align: center; }
-        .btn-save { background: var(--green); color: white; width: 100%; margin-top: 15px; }
+        .btn-save { background: var(--green); color: white; width: 100%; margin-top: 0; }
         .btn-new { background: var(--green); color: white; padding: 8px 15px; font-size: 0.8rem; }
-        .btn-export { background: #121214; color: var(--orange); border: 1px solid var(--orange); padding: 8px 15px; font-size: 0.8rem; }
-        .btn-pix { background: var(--orange); color: #000; width: 100%; max-width: 320px; margin-top: 15px; font-size: 0.9rem; }
+        .btn-export { background: var(--bg); color: var(--orange); border: 1px solid var(--orange); padding: 8px 15px; font-size: 0.8rem; }
+        .btn-pix { background: var(--orange); color: white; width: 100%; max-width: 320px; margin-top: 15px; font-size: 0.9rem; }
         .btn-action:hover { opacity: 0.8; transform: translateY(-1px); }
 
         .history-section { margin-top: 40px; border-top: 2px solid var(--gray); padding-top: 20px; }
         .history-list { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 15px; }
         .history-item { background: var(--card); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--gray); }
-        .history-info strong { font-size: 1.1rem; }
-        .history-values { text-align: right; margin-right: 20px; font-size: 0.8rem; }
         .btn-delete { background: var(--red); color: white; width: 30px; height: 30px; border-radius: 50%; border: none; cursor: pointer; font-weight: bold; }
 
         .footer-thanks { text-align: center; margin: 60px 0 20px; padding: 40px 20px; background: var(--card); border-radius: 20px; border: 1px solid var(--gray); }
-        .pix-info { font-size: 0.75rem; color: #94a3b8; margin-top: 20px; font-weight: 500; line-height: 1.6; }
-        .legal-footer { text-align: center; padding: 20px; color: #555; font-size: 0.7rem; border-top: 1px solid var(--gray); letter-spacing: 0.5px; }
+        .pix-info { font-size: 0.75rem; color: var(--text-gray); margin-top: 20px; font-weight: 500; line-height: 1.8; }
+        .legal-footer { text-align: center; padding: 20px; color: var(--text-gray); font-size: 0.7rem; border-top: 1px solid var(--gray); letter-spacing: 0.5px; }
+        
+        /* Botão de Tema */
+        .theme-toggle { background: var(--gray); border: none; color: var(--text-main); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
     </style>
 </head>
 <body>
@@ -76,12 +84,13 @@
     <div class="header">
         <div class="brand">
             <h1><span>Precific</span>Ecom</h1>
-            <span class="by-eron">By Eron Vasconcelos</span>
+            <span style="font-size: 0.75rem; color: var(--text-gray); display: block; margin-top: 2px; font-weight: 600;">By Eron Vasconcelos</span>
         </div>
         <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema">🌓</button>
             <button class="btn-action btn-new" onclick="novoProjeto()">+ NOVO</button>
             <button class="btn-action btn-export" onclick="exportarCSV()">EXPORTAR CSV</button>
-            <select id="moeda" style="background:#000; color:white; border:1px solid var(--orange); padding:8px; border-radius:8px;" onchange="calcular()">
+            <select id="moeda" style="width: auto;" onchange="calcular()">
                 <option value="R$">BRL (R$)</option>
                 <option value="$">USD ($)</option>
                 <option value="€">EUR (€)</option>
@@ -120,7 +129,7 @@
                 <input type="number" id="mktPerc" value="25" oninput="calcular()">
             </div>
 
-            <div class="card" style="background: #252529; border: 1px dashed var(--orange);">
+            <div class="card" style="background: var(--input-bg); border: 1px dashed var(--orange);">
                 <h3>💡 Consultoria de Margem</h3>
                 <div class="btn-group">
                     <button class="btn-sug" onclick="aplicarSugestao(0.2)">20% Lucro</button>
@@ -140,7 +149,7 @@
                 <div id="resMargem" style="font-weight: 700; color: var(--green);">Margem Final: 0%</div>
             </div>
 
-            <div class="card" style="margin-top: 20px;">
+            <div class="card" style="margin-top: 20px; margin-bottom: 10px;">
                 <h3>Análise de Viabilidade</h3>
                 <div class="detail-item"><span>Markup Real:</span> <span id="detMarkup" style="font-weight: bold;">0x</span></div>
                 <div class="detail-item"><span>CPA Break-even:</span> <span id="detBreakEven" style="color:var(--orange); font-weight:bold;">0</span></div>
@@ -156,9 +165,8 @@
                 <div class="detail-item"><span>(-) Logística Total:</span> <span id="detTotalBase">0</span></div>
                 <div class="detail-item"><span>(-) CPA Marketing:</span> <span id="detMktReal">0</span></div>
                 <div class="detail-item" style="border:0"><span>(-) Taxas + Impostos:</span> <span id="detTaxasImp">0</span></div>
-
-                <button class="btn-action btn-save" onclick="salvarHistorico()">SALVAR NO HISTÓRICO</button>
             </div>
+            <button class="btn-action btn-save" onclick="salvarHistorico()">SALVAR NO HISTÓRICO</button>
         </div>
     </div>
 
@@ -172,10 +180,11 @@
 
     <div class="footer-thanks">
         <h2 style="color: var(--orange); margin-top:0;">Obrigado por utilizar o PrecificEcom!</h2>
-        <p style="color: #aaa; max-width: 600px; margin: 15px auto;">Ferramenta desenvolvida para ajudar empreendedores a escalarem com lucro real.</p>
+        <p style="color: var(--text-gray); max-width: 600px; margin: 15px auto;">Ferramenta desenvolvida para ajudar empreendedores a escalarem com lucro real.</p>
         <button class="btn-action btn-pix" onclick="fazerPix()">APOIAR O PROJETO (VIA PIX)</button>
         <div class="pix-info">
-            OTIMIZA NEGOCIOS DIGITAIS LTDA | CNPJ: 49.276.400/0001-13 | MEDIATION DIGITAL
+            CNPJ: 49.276.400/0001-13 <br>
+            OTIMIZA NEGOCIOS DIGITAIS LTDA | MEDIATION DIGITAL
         </div>
         <p id="pixStatus" style="font-size: 0.75rem; color: var(--green); margin-top: 10px; font-weight: bold;"></p>
     </div>
@@ -186,6 +195,23 @@
 </div>
 
 <script>
+    function toggleTheme() {
+        const body = document.body;
+        const currentTheme = body.getAttribute('data-theme');
+        if (currentTheme === 'light') {
+            body.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    // Carregar tema salvo
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+    }
+
     function fazerPix() {
         const chavePix = "b8e85c5f-973c-4a64-8d9b-7b26e5f620fe";
         navigator.clipboard.writeText(chavePix).then(() => {
