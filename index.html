@@ -22,52 +22,60 @@
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 20px; font-size: 14px; line-height: 1.5; transition: background 0.3s, color 0.3s; }
         .container { max-width: 1050px; margin: 0 auto; }
         
-        /* HEADER - TUDO EM UMA LINHA */
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--orange); padding-bottom: 15px; margin-bottom: 30px; gap: 10px; flex-wrap: nowrap; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--orange); padding-bottom: 15px; margin-bottom: 30px; gap: 10px; flex-wrap: wrap; }
         .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; color: var(--text-main); line-height: 1.2; }
         .brand span { color: var(--orange); }
-
-        .header-actions { display: flex; gap: 8px; align-items: center; }
-
-        /* AJUSTE DE ALTURA E ALINHAMENTO (MOEDA E BOTÕES) */
-        select#moeda, .theme-toggle, .btn-new-top, .btn-export {
-            height: 42px; display: flex; align-items: center; justify-content: center; padding: 0 12px;
-            border-radius: 8px; font-weight: bold; font-size: 0.8rem; box-sizing: border-box;
-            border: 1px solid var(--gray); background: var(--input-bg); color: var(--text-main);
-            line-height: 1.2; cursor: pointer; text-transform: uppercase; white-space: nowrap;
-        }
-
-        .btn-new-top { background: var(--green); color: white; border: none; }
-        .btn-export { color: var(--orange); border-color: var(--orange); }
-        .theme-toggle { width: 42px; padding: 0; font-size: 1.1rem; }
-        select#moeda { width: auto; min-width: 95px; }
 
         h3 { color: var(--orange); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 20px; }
 
         .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .header { flex-wrap: wrap; } }
+        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
 
-        .card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); margin-bottom: 20px; }
+        .card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         label { display: block; font-size: 0.7rem; color: var(--text-gray); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
         
         input { width: 100%; background: var(--input-bg); border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: var(--text-main); outline: none; font-size: 1rem; box-sizing: border-box; }
+        input:focus { border-color: var(--orange); }
 
-        /* CONSULTORIA DE MARGEM */
+        /* Ajuste de Moeda e Botões Superiores */
+        select#moeda, .theme-toggle, .btn-new-top, .btn-export {
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            box-sizing: border-box;
+            border: 1px solid var(--gray);
+            background: var(--input-bg);
+            color: var(--text-main);
+            line-height: 1; /* Centraliza o texto verticalmente */
+            cursor: pointer;
+        }
+
+        select#moeda { 
+            width: auto; 
+            padding-right: 10px;
+        }
+
+        .btn-new-top { background: var(--green); color: white; border: none; text-transform: uppercase; }
+        .btn-export { color: var(--orange); border-color: var(--orange); text-transform: uppercase; }
+        .theme-toggle { width: 42px; padding: 0; font-size: 1.1rem; }
+
         .btn-group { display: flex; gap: 10px; margin-top: 10px; }
         .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 0.8rem; }
         .btn-sug:hover { background: var(--orange); color: white; }
 
-        /* RESULTADOS E ESPAÇAMENTO LUCRO */
         .result-main { background: var(--input-bg); border: 2px solid var(--orange); border-radius: 20px; padding: 30px; text-align: center; }
         .editable-price-container { background: var(--card); border-radius: 12px; padding: 10px; margin: 15px auto; max-width: 250px; border: 1px solid var(--gray); }
         .editable-price-container input { background: transparent; border: none; text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--text-main); padding: 0; margin: 0; width: 100%; }
 
-        .big-price { font-size: 3.5rem; font-weight: 800; margin: 10px 0 0 0; letter-spacing: -2px; }
-        .lucro-label { font-size: 0.8rem; font-weight: 600; color: var(--green); margin-top: -8px; margin-bottom: 22px; display: block; }
-        #resMargem { font-weight: 700; color: var(--green); margin-top: 5px; display: block; }
-
+        .big-price { font-size: 3.5rem; font-weight: 800; margin: 10px 0; letter-spacing: -2px; }
         .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray); }
+        
         .comp-bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 20px 0; background: var(--gray); }
         .comp-item { height: 100%; transition: width 0.4s ease; }
 
@@ -78,6 +86,7 @@
         .btn-action { padding: 12px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; text-transform: uppercase; transition: 0.2s; text-decoration: none; display: inline-block; text-align: center; }
         .btn-save { background: var(--green); color: white; width: 100%; margin-top: 15px; }
         .btn-pix { background: var(--green); color: white; width: 100%; max-width: 320px; margin-top: 15px; font-size: 0.9rem; }
+        .btn-action:hover { opacity: 0.8; transform: translateY(-1px); }
 
         .history-section { margin-top: 40px; border-top: 2px solid var(--gray); padding-top: 20px; }
         .history-list { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 15px; }
@@ -86,6 +95,7 @@
 
         .footer-thanks { text-align: center; margin: 60px 0 20px; padding: 40px 20px; background: var(--card); border-radius: 20px; border: 1px solid var(--gray); }
         .pix-info { font-size: 0.75rem; color: var(--text-gray); margin-top: 20px; font-weight: 600; line-height: 1.8; }
+        .legal-footer { text-align: center; padding: 20px; color: var(--text-gray); font-size: 0.7rem; border-top: 1px solid var(--gray); letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
@@ -96,16 +106,16 @@
             <h1><span>Precific</span>Ecom</h1>
             <span style="font-size: 0.75rem; color: #888888; display: block; margin-top: 4px; font-weight: 600;">By Eron Vasconcelos</span>
         </div>
-        <div class="header-actions">
+        <div style="display: flex; gap: 10px; align-items: center;">
             <button class="btn-new-top" onclick="novoProjeto()">+ NOVO</button>
-            <button class="btn-export" onclick="exportarCSV()">EXPORTAR CSV</button>
+            <button class="btn-export" onclick="exportarCSV()">Exportar CSV</button>
             <select id="moeda" onchange="calcular()">
                 <option value="R$">BRL (R$)</option>
                 <option value="$">USD ($)</option>
                 <option value="€">EUR (€)</option>
                 <option value="£" selected>GBP (£)</option>
             </select>
-            <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema">🌓</button>
         </div>
     </div>
 
@@ -120,21 +130,23 @@
                     <div><label>Frete (Envio)</label><input type="number" id="frete" placeholder="0.00" oninput="calcular()"></div>
                 </div>
                 <div class="input-grid">
-                    <div><label>Importação (%)</label><input type="number" id="impImp" oninput="calcular()"></div>
-                    <div><label>ICMS/IOF (%)</label><input type="number" id="icms" oninput="calcular()"></div>
+                    <div><label>Importação (%)</label><input type="number" id="impImp" placeholder="0" oninput="calcular()"></div>
+                    <div><label>ICMS / IOF (%)</label><input type="number" id="icms" placeholder="0" oninput="calcular()"></div>
                 </div>
             </div>
 
             <div class="card">
                 <h3>2. Operação & Marketing</h3>
                 <div class="input-grid">
-                    <div><label>Checkout (%)</label><input type="number" id="taxaCheck" oninput="calcular()"></div>
-                    <div><label>Gateway (%)</label><input type="number" id="taxaGate" oninput="calcular()"></div>
+                    <div><label>Checkout (%)</label><input type="number" id="taxaCheck" placeholder="0" oninput="calcular()"></div>
+                    <div><label>Gateway (%)</label><input type="number" id="taxaGate" placeholder="0" oninput="calcular()"></div>
                 </div>
                 <div class="input-grid">
-                    <div><label>Imposto Venda (%)</label><input type="number" id="impVenda" oninput="calcular()"></div>
-                    <div><label>Marketing (CPA %)</label><input type="number" id="mktPerc" value="25" oninput="calcular()"></div>
+                    <div><label>Imposto Venda (%)</label><input type="number" id="impVenda" placeholder="0" oninput="calcular()"></div>
+                    <div><label>Trocas/Devoluções (%)</label><input type="number" id="contingencia" placeholder="0" oninput="calcular()"></div>
                 </div>
+                <label>Marketing (CPA Ideal %)</label>
+                <input type="number" id="mktPerc" value="25" oninput="calcular()">
             </div>
 
             <div class="card" style="background: var(--input-bg); border: 1px dashed var(--orange);">
@@ -154,14 +166,14 @@
                     <input type="number" id="precoVenda" placeholder="0.00" oninput="calcular()">
                 </div>
                 <div id="resLucro" class="big-price">0,00</div>
-                <span class="lucro-label">(Lucro Estimado)</span>
-                <span id="resMargem" style="font-weight: 700; color: var(--green);">Margem Final: 0.0%</span>
+                <div id="resMargem" style="font-weight: 700; color: var(--green);">Margem Final: 0%</div>
             </div>
 
-            <div class="card" style="margin-top: 20px;">
+            <div class="card" style="margin-top: 20px; margin-bottom: 10px;">
                 <h3>Análise de Viabilidade</h3>
                 <div class="detail-item"><span>Markup Real:</span> <span id="detMarkup" style="font-weight: bold;">0x</span></div>
                 <div class="detail-item"><span>CPA Break-even:</span> <span id="detBreakEven" style="color:var(--orange); font-weight:bold;">0</span></div>
+                <div class="detail-item"><span>Lucro Unitário:</span> <span id="detLucroUnit" style="color:var(--green); font-weight:bold;">0</span></div>
                 
                 <div class="comp-bar">
                     <div id="barCusto" class="comp-item" style="background: #444;"></div>
@@ -169,8 +181,10 @@
                     <div id="barTaxas" class="comp-item" style="background: var(--blue);"></div>
                     <div id="barLucro" class="comp-item" style="background: var(--green);"></div>
                 </div>
-                <div class="detail-item"><span>Custos Logísticos:</span> <span id="detCustos">0</span></div>
-                <div class="detail-item"><span>Taxas Operacionais:</span> <span id="detTaxas">0</span></div>
+
+                <div class="detail-item"><span>(-) Logística Total:</span> <span id="detTotalBase">0</span></div>
+                <div class="detail-item"><span>(-) CPA Marketing:</span> <span id="detMktReal">0</span></div>
+                <div class="detail-item" style="border:0"><span>(-) Taxas + Impostos:</span> <span id="detTaxasImp">0</span></div>
             </div>
             <button class="btn-action btn-save" onclick="salvarHistorico()">SALVAR NO HISTÓRICO</button>
         </div>
@@ -180,12 +194,13 @@
     <div class="proj-grid" id="gridProj"></div>
 
     <div class="history-section">
-        <h3>Histórico de Produtos</h3>
+        <h3>Histórico de Produtos Salvos</h3>
         <div id="historicoLista" class="history-list"></div>
     </div>
 
     <div class="footer-thanks">
         <h2 style="color: var(--orange); margin-top:0;">Obrigado por utilizar o PrecificEcom!</h2>
+        <p style="color: var(--text-gray); max-width: 600px; margin: 15px auto;">Ferramenta desenvolvida para ajudar empreendedores a escalarem com lucro real.</p>
         <button class="btn-action btn-pix" onclick="fazerPix()">APOIAR O PROJETO (VIA PIX)</button>
         <div class="pix-info">
             CNPJ: 49.276.400/0001-13 <br>
@@ -193,88 +208,146 @@
         </div>
         <p id="pixStatus" style="font-size: 0.75rem; color: var(--green); margin-top: 10px; font-weight: bold;"></p>
     </div>
+
+    <div class="legal-footer">
+        © 2025 PrecificEcom - Todos os direitos reservados.
+    </div>
 </div>
 
 <script>
     function toggleTheme() {
         const body = document.body;
         const isLight = body.getAttribute('data-theme') === 'light';
-        body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+        if (isLight) {
+            body.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+    }
+
+    function fazerPix() {
+        const chavePix = "b8e85c5f-973c-4a64-8d9b-7b26e5f620fe";
+        navigator.clipboard.writeText(chavePix).then(() => {
+            document.getElementById('pixStatus').innerText = "CHAVE PIX COPIADA! Cole no seu banco em 'Pix Copia e Cola'.";
+            alert("Chave Pix copiada com sucesso!");
+        });
+    }
+
+    function novoProjeto() {
+        if(confirm("Deseja zerar todos os campos para uma nova precificação?")) {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(i => { if(i.id !== 'mktPerc') i.value = ""; });
+            document.getElementById('mktPerc').value = "25";
+            calcular();
+        }
     }
 
     function aplicarSugestao(margemAlvo) {
         const v = (id) => parseFloat(document.getElementById(id).value) || 0;
-        const custoTotal = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms')) / 100);
-        const taxasPerc = (v('taxaCheck') + v('taxaGate') + v('impVenda') + v('mktPerc')) / 100;
-        const divisor = 1 - taxasPerc - margemAlvo;
+        const custoTotalOrigem = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms')) / 100);
+        const percentuaisVariaveis = (v('taxaCheck') + v('taxaGate') + v('impVenda') + v('mktPerc') + v('contingencia')) / 100;
+        const divisor = 1 - percentuaisVariaveis - margemAlvo;
         if (divisor > 0) {
-            document.getElementById('precoVenda').value = (custoTotal / divisor).toFixed(2);
+            document.getElementById('precoVenda').value = (custoTotalOrigem / divisor).toFixed(2);
             calcular();
         }
     }
 
     function calcular() {
         const s = document.getElementById('moeda').value;
-        const v = (id) => parseFloat(document.getElementById(id).value) || 0;
-        
-        const precoVenda = v('precoVenda');
+        const v = (id) => {
+            const val = parseFloat(document.getElementById(id).value);
+            return isNaN(val) ? 0 : val;
+        };
+
         const custoLogistica = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms'))/100);
-        const vlrTaxas = precoVenda * ((v('taxaCheck') + v('taxaGate') + v('impVenda')) / 100);
+        const precoVenda = v('precoVenda');
         const vlrMkt = precoVenda * (v('mktPerc') / 100);
-        
-        const lucro = precoVenda - custoLogistica - vlrTaxas - vlrMkt;
+        const vlrTaxasImp = precoVenda * ((v('taxaCheck') + v('taxaGate') + v('impVenda') + v('contingencia')) / 100);
+        const lucro = precoVenda - custoLogistica - vlrMkt - vlrTaxasImp;
         const margem = precoVenda > 0 ? (lucro / precoVenda) * 100 : 0;
-        const be = precoVenda - custoLogistica - vlrTaxas;
+        const markup = custoLogistica > 0 ? precoVenda / custoLogistica : 0;
+        const breakEvenCpa = precoVenda - custoLogistica - vlrTaxasImp;
 
         document.getElementById('resLucro').innerText = `${s} ${lucro.toFixed(2)}`;
         document.getElementById('resLucro').style.color = lucro >= 0 ? 'var(--green)' : 'var(--red)';
         document.getElementById('resMargem').innerText = `Margem Final: ${margem.toFixed(1)}%`;
-        document.getElementById('detMarkup').innerText = `${custoLogistica > 0 ? (precoVenda/custoLogistica).toFixed(2) : 0}x`;
-        document.getElementById('detBreakEven').innerText = `${s} ${be.toFixed(2)}`;
-        document.getElementById('detCustos').innerText = `${s} ${custoLogistica.toFixed(2)}`;
-        document.getElementById('detTaxas').innerText = `${s} ${vlrTaxas.toFixed(2)}`;
+        document.getElementById('detMarkup').innerText = `${markup.toFixed(2)}x`;
+        document.getElementById('detBreakEven').innerText = `${s} ${breakEvenCpa.toFixed(2)}`;
+        document.getElementById('detLucroUnit').innerText = `${s} ${lucro.toFixed(2)}`;
+        document.getElementById('detTotalBase').innerText = `${s} ${custoLogistica.toFixed(2)}`;
+        document.getElementById('detMktReal').innerText = `${s} ${vlrMkt.toFixed(2)}`;
+        document.getElementById('detTaxasImp').innerText = `${s} ${vlrTaxasImp.toFixed(2)}`;
 
         if(precoVenda > 0) {
             document.getElementById('barCusto').style.width = (custoLogistica / precoVenda * 100) + "%";
-            document.getElementById('barMkt').style.width = v('mktPerc') + "%";
-            document.getElementById('barTaxas').style.width = (vlrTaxas / precoVenda * 100) + "%";
+            document.getElementById('barMkt').style.width = (v('mktPerc')) + "%";
+            document.getElementById('barTaxas').style.width = (vlrTaxasImp / precoVenda * 100) + "%";
             document.getElementById('barLucro').style.width = (lucro > 0 ? (lucro / precoVenda * 100) : 0) + "%";
         }
 
-        const escalas = [30, 300, 1500, 3000];
+        const escalas = [30, 150, 300, 1500, 3000, 10000];
         document.getElementById('gridProj').innerHTML = escalas.map(q => {
             const lT = lucro * q;
-            return `<div class="proj-card"><small>${q} VENDAS</small><div style="color:${lT >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:bold;">${s} ${lT.toLocaleString()}</div><span class="meta-text">${(q/30).toFixed(0)}/dia</span></div>`;
+            return `<div class="proj-card"><small>${q} VENDAS/MÊS</small><div style="color:${lT >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:bold; font-size:1.1rem;">${s} ${lT.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div><span class="meta-text">Média de ${(q/30).toFixed(0)} pedidos/dia</span></div>`;
         }).join('');
     }
 
     function salvarHistorico() {
-        const item = { id: Date.now(), nome: document.getElementById('nomeProd').value || "Prod", lucro: document.getElementById('resLucro').innerText };
-        let h = JSON.parse(localStorage.getItem('precific_db') || '[]');
-        h.unshift(item);
-        localStorage.setItem('precific_db', JSON.stringify(h.slice(0, 10)));
+        const nome = document.getElementById('nomeProd').value || "Produto Sem Nome";
+        const venda = document.getElementById('precoVenda').value || "0";
+        const lucro = document.getElementById('resLucro').innerText;
+        const margem = document.getElementById('resMargem').innerText;
+        const moeda = document.getElementById('moeda').value;
+        const item = { id: Date.now(), nome, venda, lucro, margem, moeda, data: new Date().toLocaleDateString() };
+        let lista = JSON.parse(localStorage.getItem('precificecom_final_db') || '[]');
+        lista.unshift(item);
+        localStorage.setItem('precificecom_final_db', JSON.stringify(lista.slice(0, 15)));
+        renderHistorico();
+    }
+
+    function excluirItem(id) {
+        let lista = JSON.parse(localStorage.getItem('precificecom_final_db') || '[]');
+        lista = lista.filter(i => i.id !== id);
+        localStorage.setItem('precificecom_final_db', JSON.stringify(lista));
         renderHistorico();
     }
 
     function renderHistorico() {
-        const h = JSON.parse(localStorage.getItem('precific_db') || '[]');
-        document.getElementById('historicoLista').innerHTML = h.map(i => `
+        const lista = JSON.parse(localStorage.getItem('precificecom_final_db') || '[]');
+        document.getElementById('historicoLista').innerHTML = lista.map(i => `
             <div class="history-item">
-                <span><strong>${i.nome}</strong> - <span style="color:var(--green)">${i.lucro}</span></span>
-                <button class="btn-delete" onclick="excluirItem(${i.id})">X</button>
+                <div class="history-info"><strong>${i.nome}</strong><br><small>${i.data}</small></div>
+                <div style="display: flex; align-items: center;">
+                    <div style="text-align: right; margin-right: 15px;">
+                        <small>Venda: ${i.moeda} ${i.venda}</small><br>
+                        <strong style="color:var(--green)">Lucro: ${i.lucro}</strong><br>
+                        <small>${i.margem}</small>
+                    </div>
+                    <button class="btn-delete" onclick="excluirItem(${i.id})">X</button>
+                </div>
             </div>
         `).join('');
     }
 
-    function excluirItem(id) {
-        let h = JSON.parse(localStorage.getItem('precific_db') || '[]');
-        localStorage.setItem('precific_db', JSON.stringify(h.filter(i => i.id !== id)));
-        renderHistorico();
+    function exportarCSV() {
+        const lista = JSON.parse(localStorage.getItem('precificecom_final_db') || '[]');
+        if(lista.length === 0) return alert("Histórico vazio!");
+        let csv = "data:text/csv;charset=utf-8,Produto;Preco Venda;Lucro;Margem;Data\n";
+        lista.forEach(i => csv += `${i.nome};${i.venda};${i.lucro};${i.margem};${i.data}\n`);
+        const encodedUri = encodeURI(csv);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "precific_ecom_export.csv");
+        document.body.appendChild(link);
+        link.click();
     }
-
-    function fazerPix() { navigator.clipboard.writeText("b8e85c5f-973c-4a64-8d9b-7b26e5f620fe"); document.getElementById('pixStatus').innerText="COPIADA!"; }
-    function exportarCSV() { alert("Exportado!"); }
-    function novoProjeto() { document.querySelectorAll('input').forEach(i => i.value = ""); calcular(); }
 
     renderHistorico();
     calcular();
