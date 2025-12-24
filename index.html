@@ -2,362 +2,217 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PrecificEcom - Pro Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precificação Pro + Histórico</title>
     <style>
         :root {
-            --bg: #121214; --card: #1c1c1e; --orange: #ff6600;
-            --white: #ffffff; --green: #22c55e; --red: #ef4444;
-            --blue: #3b82f6; --gray: #3d3d3d; --input-bg: #252529;
-            --text-gray: #888888; --text-main: #ffffff;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #2d3436;
+            --primary-color: #00b894;
+            --secondary-color: #ff7675;
+            --border-color: #dfe6e9;
+            --accent-color: #636e72;
         }
 
-        [data-theme="light"] {
-            --bg: #f0f2f5; --card: #ffffff; --white: #121214;
-            --gray: #d1d5db; --input-bg: #f9fafb;
-            --text-gray: #6b7280; --text-main: #1f2937;
+        [data-theme="dark"] {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #c9d1d9;
+            --border-color: #30363d;
+            --accent-color: #8b949e;
         }
 
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 20px; font-size: 14px; line-height: 1.5; transition: background 0.3s, color 0.3s; }
-        .container { max-width: 1050px; margin: 0 auto; }
-        
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--orange); padding-bottom: 15px; margin-bottom: 30px; gap: 10px; flex-wrap: wrap; }
-        .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; color: var(--text-main); line-height: 1.2; }
-        .brand span { color: var(--orange); }
-
-        h3 { color: var(--orange); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 20px; }
-
-        .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
-
-        .card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        label { display: block; font-size: 0.7rem; color: var(--text-gray); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
-        
-        input { width: 100%; background: var(--input-bg); border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: var(--text-main); outline: none; font-size: 1rem; box-sizing: border-box; }
-        input:focus { border-color: var(--orange); }
-
-        /* Ajuste de Moeda e Botões Superiores */
-        select#moeda, .theme-toggle, .btn-new-top, .btn-export {
-            height: 42px;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 0 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
             box-sizing: border-box;
-            border: 1px solid var(--gray);
-            background: var(--input-bg);
-            color: var(--text-main);
-            line-height: 1; /* Centraliza o texto verticalmente */
+        }
+
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        
+        .theme-btn {
+            background: var(--border-color);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 0.8em;
+        }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .full-width { grid-column: span 2; }
+
+        label { display: block; font-size: 0.8em; margin-bottom: 4px; color: var(--accent-color); font-weight: 600; }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            box-sizing: border-box;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-top: 15px;
             cursor: pointer;
         }
 
-        select#moeda { 
-            width: auto; 
-            padding-right: 10px;
+        .history-section {
+            width: 100%;
+            max-width: 480px;
+            margin-top: 20px;
         }
 
-        .btn-new-top { background: var(--green); color: white; border: none; text-transform: uppercase; }
-        .btn-export { color: var(--orange); border-color: var(--orange); text-transform: uppercase; }
-        .theme-toggle { width: 42px; padding: 0; font-size: 1.1rem; }
+        .history-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border-left: 5px solid var(--primary-color);
+            font-size: 0.9em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-        .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 0.8rem; }
-        .btn-sug:hover { background: var(--orange); color: white; }
-
-        .result-main { background: var(--input-bg); border: 2px solid var(--orange); border-radius: 20px; padding: 30px; text-align: center; }
-        .editable-price-container { background: var(--card); border-radius: 12px; padding: 10px; margin: 15px auto; max-width: 250px; border: 1px solid var(--gray); }
-        .editable-price-container input { background: transparent; border: none; text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--text-main); padding: 0; margin: 0; width: 100%; }
-
-        .big-price { font-size: 3.5rem; font-weight: 800; margin: 10px 0; letter-spacing: -2px; }
-        .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray); }
-        
-        .comp-bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 20px 0; background: var(--gray); }
-        .comp-item { height: 100%; transition: width 0.4s ease; }
-
-        .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 25px; }
-        .proj-card { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--gray); text-align: center; }
-        .meta-text { display: block; font-size: 0.7rem; color: var(--text-gray); margin-top: 8px; font-weight: 600; }
-
-        .btn-action { padding: 12px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; text-transform: uppercase; transition: 0.2s; text-decoration: none; display: inline-block; text-align: center; }
-        .btn-save { background: var(--green); color: white; width: 100%; margin-top: 15px; }
-        .btn-pix { background: var(--green); color: white; width: 100%; max-width: 320px; margin-top: 15px; font-size: 0.9rem; }
-        .btn-action:hover { opacity: 0.8; transform: translateY(-1px); }
-
-        .history-section { margin-top: 40px; border-top: 2px solid var(--gray); padding-top: 20px; }
-        .history-list { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 15px; }
-        .history-item { background: var(--card); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--gray); }
-        .btn-delete { background: var(--red); color: white; width: 30px; height: 30px; border-radius: 50%; border: none; cursor: pointer; font-weight: bold; }
-
-        .footer-thanks { text-align: center; margin: 60px 0 20px; padding: 40px 20px; background: var(--card); border-radius: 20px; border: 1px solid var(--gray); }
-        .pix-info { font-size: 0.75rem; color: var(--text-gray); margin-top: 20px; font-weight: 600; line-height: 1.8; }
-        .legal-footer { text-align: center; padding: 20px; color: var(--text-gray); font-size: 0.7rem; border-top: 1px solid var(--gray); letter-spacing: 0.5px; }
+        .positive { color: var(--primary-color); font-weight: bold; }
+        .negative { color: var(--secondary-color); font-weight: bold; }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
 <div class="container">
     <div class="header">
-        <div class="brand">
-            <h1><span>Precific</span>Ecom</h1>
-            <span style="font-size: 0.75rem; color: #888888; display: block; margin-top: 4px; font-weight: 600;">By Eron Vasconcelos</span>
-        </div>
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <button class="btn-new-top" onclick="novoProjeto()">+ NOVO</button>
-            <button class="btn-export" onclick="exportarCSV()">Exportar CSV</button>
-            <select id="moeda" onchange="calcular()">
-                <option value="R$">BRL (R$)</option>
-                <option value="$">USD ($)</option>
-                <option value="€">EUR (€)</option>
-                <option value="£" selected>GBP (£)</option>
-            </select>
-            <button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema">🌓</button>
-        </div>
+        <h2 style="margin:0">Calculadora</h2>
+        <button class="theme-btn" onclick="toggleTheme()">🌙 Tema</button>
     </div>
 
-    <div class="layout">
-        <div>
-            <div class="card">
-                <h3>1. Identificação e Custos</h3>
-                <label>Nome do Produto</label>
-                <input type="text" id="nomeProd" placeholder="Ex: Produto A" style="margin-bottom: 15px;">
-                <div class="input-grid">
-                    <div><label>Custo Produto</label><input type="number" id="custoProd" placeholder="0.00" oninput="calcular()"></div>
-                    <div><label>Frete (Envio)</label><input type="number" id="frete" placeholder="0.00" oninput="calcular()"></div>
-                </div>
-                <div class="input-grid">
-                    <div><label>Importação (%)</label><input type="number" id="impImp" placeholder="0" oninput="calcular()"></div>
-                    <div><label>ICMS / IOF (%)</label><input type="number" id="icms" placeholder="0" oninput="calcular()"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>2. Operação & Marketing</h3>
-                <div class="input-grid">
-                    <div><label>Checkout (%)</label><input type="number" id="taxaCheck" placeholder="0" oninput="calcular()"></div>
-                    <div><label>Gateway (%)</label><input type="number" id="taxaGate" placeholder="0" oninput="calcular()"></div>
-                </div>
-                <div class="input-grid">
-                    <div><label>Imposto Venda (%)</label><input type="number" id="impVenda" placeholder="0" oninput="calcular()"></div>
-                    <div><label>Trocas/Devoluções (%)</label><input type="number" id="contingencia" placeholder="0" oninput="calcular()"></div>
-                </div>
-                <label>Marketing (CPA Ideal %)</label>
-                <input type="number" id="mktPerc" value="25" oninput="calcular()">
-            </div>
-
-            <div class="card" style="background: var(--input-bg); border: 1px dashed var(--orange);">
-                <h3>💡 Consultoria de Margem</h3>
-                <div class="btn-group">
-                    <button class="btn-sug" onclick="aplicarSugestao(0.2)">20% Lucro</button>
-                    <button class="btn-sug" onclick="aplicarSugestao(0.3)">30% Lucro</button>
-                    <button class="btn-sug" onclick="aplicarSugestao(0.4)">40% Lucro</button>
-                </div>
-            </div>
+    <div class="input-grid">
+        <div class="input-group full-width">
+            <label>Nome do Produto</label>
+            <input type="text" id="nome" placeholder="Ex: Camiseta Branca">
         </div>
-
-      <div>
-            <div class="result-main">
-                <label style="color: var(--orange); font-weight: bold;">PREÇO DE VENDA DEFINIDO</label>
-                <div class="editable-price-container">
-                    <input type="number" id="precoVenda" placeholder="0.00" oninput="calcular()">
-                </div>
-                <div id="resLucro" class="big-price">0,00</div>
-                <span class="lucro-label">(Lucro Estimado)</span>
-                <div id="resMargem" style="font-weight: 700; color: var(--green);">Margem Final: 0%</div>
-            </div>
-
-            <div class="card" style="margin-top: 20px; margin-bottom: 10px;">
-                <h3>Análise de Viabilidade</h3>
-                <div class="detail-item"><span>Markup Real:</span> <span id="detMarkup" style="font-weight: bold;">0x</span></div>
-                <div class="detail-item"><span>CPA Break-even:</span> <span id="detBreakEven" style="color:var(--orange); font-weight:bold;">0</span></div>
-                <div class="detail-item"><span>Lucro Unitário:</span> <span id="detLucroUnit" style="color:var(--green); font-weight:bold;">0</span></div>
-                
-                <div class="comp-bar">
-                    <div id="barCusto" class="comp-item" style="background: #444;"></div>
-                    <div id="barMkt" class="comp-item" style="background: var(--orange);"></div>
-                    <div id="barTaxas" class="comp-item" style="background: var(--blue);"></div>
-                    <div id="barLucro" class="comp-item" style="background: var(--green);"></div>
-                </div>
-
-                <div class="detail-item"><span>(-) Logística Total:</span> <span id="detTotalBase">0</span></div>
-                <div class="detail-item"><span>(-) CPA Marketing:</span> <span id="detMktReal">0</span></div>
-                <div class="detail-item" style="border:0"><span>(-) Taxas + Impostos:</span> <span id="detTaxasImp">0</span></div>
-            </div>
-            <button class="btn-action btn-save" onclick="salvarHistorico()">SALVAR NO HISTÓRICO</button>
+        <div class="input-group">
+            <label>Custo (R$)</label>
+            <input type="number" id="custo" oninput="calcular()">
+        </div>
+        <div class="input-group">
+            <label>Margem (%)</label>
+            <input type="number" id="margem" oninput="calcular()">
+        </div>
+        <div class="input-group">
+            <label>Imposto (%)</label>
+            <input type="number" id="imposto" oninput="calcular()">
+        </div>
+        <div class="input-group">
+            <label>Taxas (%)</label>
+            <input type="number" id="taxas" oninput="calcular()">
         </div>
     </div>
 
-    <h3>Projeção Mensal & Meta Diária</h3>
-    <div class="proj-grid" id="gridProj"></div>
-
-    <div class="history-section">
-        <h3>Histórico de Produtos Salvos</h3>
-        <div id="historicoLista" class="history-list"></div>
+    <div style="text-align:center; margin-top:20px; border-top: 1px solid var(--border-color); padding-top:15px;">
+        <span style="font-size: 0.8em; color: var(--accent-color);">PREÇO SUGERIDO</span>
+        <h1 id="precoFinal" style="margin:5px 0" class="positive">R$ 0,00</h1>
+        <small id="lucroTexto">Lucro: R$ 0,00</small>
     </div>
 
-    <div class="footer-thanks">
-        <h2 style="color: var(--orange); margin-top:0;">Obrigado por utilizar o PrecificEcom!</h2>
-        <p style="color: var(--text-gray); max-width: 600px; margin: 15px auto;">Ferramenta desenvolvida para ajudar empreendedores a escalarem com lucro real.</p>
-        <button class="btn-action btn-pix" onclick="fazerPix()">APOIAR O PROJETO (VIA PIX)</button>
-        <div class="pix-info">
-            CNPJ: 49.276.400/0001-13 <br>
-            OTIMIZA NEGOCIOS DIGITAIS LTDA | MEDIATION DIGITAL
-        </div>
-        <p id="pixStatus" style="font-size: 0.75rem; color: var(--green); margin-top: 10px; font-weight: bold;"></p>
-    </div>
-
-    <div class="legal-footer">
-        © 2025 PrecificEcom - Todos os direitos reservados.
-    </div>
+    <button class="save-btn" onclick="salvarNoHistorico()">Salvar no Histórico</button>
 </div>
+
+<div class="history-section" id="historicoLista">
+    <h3 style="font-size: 1em;">Recentes</h3>
+    </div>
 
 <script>
     function toggleTheme() {
         const body = document.body;
-        const isLight = body.getAttribute('data-theme') === 'light';
-        if (isLight) {
-            body.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            body.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-        }
-    }
-
-    if (localStorage.getItem('theme') === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-    }
-
-    function fazerPix() {
-        const chavePix = "b8e85c5f-973c-4a64-8d9b-7b26e5f620fe";
-        navigator.clipboard.writeText(chavePix).then(() => {
-            document.getElementById('pixStatus').innerText = "CHAVE PIX COPIADA! Cole no seu banco em 'Pix Copia e Cola'.";
-            alert("Chave Pix copiada com sucesso!");
-        });
-    }
-
-    function novoProjeto() {
-        if(confirm("Deseja zerar todos os campos para uma nova precificação?")) {
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(i => { if(i.id !== 'mktPerc') i.value = ""; });
-            document.getElementById('mktPerc').value = "25";
-            calcular();
-        }
-    }
-
-    function aplicarSugestao(margemAlvo) {
-        const v = (id) => parseFloat(document.getElementById(id).value) || 0;
-        const custoTotalOrigem = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms')) / 100);
-        const percentuaisVariaveis = (v('taxaCheck') + v('taxaGate') + v('impVenda') + v('mktPerc') + v('contingencia')) / 100;
-        const divisor = 1 - percentuaisVariaveis - margemAlvo;
-        if (divisor > 0) {
-            document.getElementById('precoVenda').value = (custoTotalOrigem / divisor).toFixed(2);
-            calcular();
-        }
+        const isDark = body.getAttribute('data-theme') === 'dark';
+        body.setAttribute('data-theme', isDark ? 'light' : 'dark');
     }
 
     function calcular() {
-        const s = document.getElementById('moeda').value;
-        const v = (id) => {
-            const val = parseFloat(document.getElementById(id).value);
-            return isNaN(val) ? 0 : val;
+        const custo = parseFloat(document.getElementById('custo').value) || 0;
+        const imposto = parseFloat(document.getElementById('imposto').value) || 0;
+        const taxas = parseFloat(document.getElementById('taxas').value) || 0;
+        const margem = parseFloat(document.getElementById('margem').value) || 0;
+
+        const divisor = (100 - (imposto + taxas + margem)) / 100;
+        let preco = divisor > 0 ? custo / divisor : 0;
+        
+        let lucro = preco - custo - (preco * (imposto/100)) - (preco * (taxas/100));
+
+        document.getElementById('precoFinal').innerText = `R$ ${preco.toFixed(2)}`;
+        const txtLucro = document.getElementById('lucroTexto');
+        txtLucro.innerText = `Lucro: R$ ${lucro.toFixed(2)}`;
+        txtLucro.className = lucro >= 0 ? 'positive' : 'negative';
+        
+        return { preco, lucro };
+    }
+
+    function salvarNoHistorico() {
+        const nome = document.getElementById('nome').value || "Sem nome";
+        const dados = calcular();
+        
+        const item = {
+            nome: nome,
+            preco: dados.preco.toFixed(2),
+            lucro: dados.lucro.toFixed(2)
         };
 
-        const custoLogistica = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms'))/100);
-        const precoVenda = v('precoVenda');
-        const vlrMkt = precoVenda * (v('mktPerc') / 100);
-        const vlrTaxasImp = precoVenda * ((v('taxaCheck') + v('taxaGate') + v('impVenda') + v('contingencia')) / 100);
-        const lucro = precoVenda - custoLogistica - vlrMkt - vlrTaxasImp;
-        const margem = precoVenda > 0 ? (lucro / precoVenda) * 100 : 0;
-        const markup = custoLogistica > 0 ? precoVenda / custoLogistica : 0;
-        const breakEvenCpa = precoVenda - custoLogistica - vlrTaxasImp;
-
-        document.getElementById('resLucro').innerText = `${s} ${lucro.toFixed(2)}`;
-        document.getElementById('resLucro').style.color = lucro >= 0 ? 'var(--green)' : 'var(--red)';
-        document.getElementById('resMargem').innerText = `Margem Final: ${margem.toFixed(1)}%`;
-        document.getElementById('detMarkup').innerText = `${markup.toFixed(2)}x`;
-        document.getElementById('detBreakEven').innerText = `${s} ${breakEvenCpa.toFixed(2)}`;
-        document.getElementById('detLucroUnit').innerText = `${s} ${lucro.toFixed(2)}`;
-        document.getElementById('detTotalBase').innerText = `${s} ${custoLogistica.toFixed(2)}`;
-        document.getElementById('detMktReal').innerText = `${s} ${vlrMkt.toFixed(2)}`;
-        document.getElementById('detTaxasImp').innerText = `${s} ${vlrTaxasImp.toFixed(2)}`;
-
-        if(precoVenda > 0) {
-            document.getElementById('barCusto').style.width = (custoLogistica / precoVenda * 100) + "%";
-            document.getElementById('barMkt').style.width = (v('mktPerc')) + "%";
-            document.getElementById('barTaxas').style.width = (vlrTaxasImp / precoVenda * 100) + "%";
-            document.getElementById('barLucro').style.width = (lucro > 0 ? (lucro / precoVenda * 100) : 0) + "%";
-        }
-
-        const escalas = [30, 150, 300, 1500, 3000, 10000];
-        document.getElementById('gridProj').innerHTML = escalas.map(q => {
-            const lT = lucro * q;
-            return `<div class="proj-card"><small>${q} VENDAS/MÊS</small><div style="color:${lT >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:bold; font-size:1.1rem;">${s} ${lT.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div><span class="meta-text">Média de ${(q/30).toFixed(0)} pedidos/dia</span></div>`;
-        }).join('');
+        let historico = JSON.parse(localStorage.getItem('historico') || '[]');
+        historico.unshift(item); // Adiciona no início
+        localStorage.setItem('historico', JSON.stringify(historico.slice(0, 5))); // Salva os últimos 5
+        renderizarHistorico();
     }
 
-    function salvarHistorico() {
-        const nome = document.getElementById('nomeProd').value || "Produto Sem Nome";
-        const venda = document.getElementById('precoVenda').value || "0";
-        const lucro = document.getElementById('resLucro').innerText;
-        const margem = document.getElementById('resMargem').innerText;
-        const moeda = document.getElementById('moeda').value;
-        const item = { id: Date.now(), nome, venda, lucro, margem, moeda, data: new Date().toLocaleDateString() };
-        let lista = JSON.parse(localStorage.getItem('precificecom_final_db') || '[]');
-        lista.unshift(item);
-        localStorage.setItem('precificecom_final_db', JSON.stringify(lista.slice(0, 15)));
-        renderHistorico();
-    }
-
-    function excluirItem(id) {
-        let lista = JSON.parse(localStorage.getItem('precificecom_final_db') || '[]');
-        lista = lista.filter(i => i.id !== id);
-        localStorage.setItem('precificecom_final_db', JSON.stringify(lista));
-        renderHistorico();
-    }
-
-    function renderHistorico() {
-        const lista = JSON.parse(localStorage.getItem('precificecom_final_db') || '[]');
-        document.getElementById('historicoLista').innerHTML = lista.map(i => `
-            <div class="history-item">
-                <div class="history-info"><strong>${i.nome}</strong><br><small>${i.data}</small></div>
-                <div style="display: flex; align-items: center;">
-                    <div style="text-align: right; margin-right: 15px;">
-                        <small>Venda: ${i.moeda} ${i.venda}</small><br>
-                        <strong style="color:var(--green)">Lucro: ${i.lucro}</strong><br>
-                        <small>${i.margem}</small>
-                    </div>
-                    <button class="btn-delete" onclick="excluirItem(${i.id})">X</button>
+    function renderizarHistorico() {
+        const lista = document.getElementById('historicoLista');
+        const historico = JSON.parse(localStorage.getItem('historico') || '[]');
+        
+        const html = historico.map(i => `
+            <div class="history-card">
+                <div>
+                    <strong>${i.nome}</strong><br>
+                    <small>Preço: R$ ${i.preco}</small>
                 </div>
+                <span class="${i.lucro >= 0 ? 'positive' : 'negative'}">R$ ${i.lucro}</span>
             </div>
         `).join('');
+        
+        lista.innerHTML = '<h3 style="font-size: 1em;">Recentes</h3>' + html;
     }
 
-    function exportarCSV() {
-        const lista = JSON.parse(localStorage.getItem('precificecom_final_db') || '[]');
-        if(lista.length === 0) return alert("Histórico vazio!");
-        let csv = "data:text/csv;charset=utf-8,Produto;Preco Venda;Lucro;Margem;Data\n";
-        lista.forEach(i => csv += `${i.nome};${i.venda};${i.lucro};${i.margem};${i.data}\n`);
-        const encodedUri = encodeURI(csv);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "precific_ecom_export.csv");
-        document.body.appendChild(link);
-        link.click();
-    }
-
-    renderHistorico();
-    calcular();
+    // Carregar ao iniciar
+    renderizarHistorico();
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
