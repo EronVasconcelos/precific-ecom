@@ -42,6 +42,7 @@
         .theme-toggle { width: 42px; padding: 0; font-size: 1.1rem; }
         select#moeda { width: auto; min-width: 95px; }
 
+        /* LAYOUT */
         .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .header { flex-wrap: wrap; } }
 
@@ -55,14 +56,27 @@
         .editable-price-container { background: var(--card); border-radius: 12px; padding: 10px; margin: 15px auto; max-width: 250px; border: 1px solid var(--gray); }
         .editable-price-container input { background: transparent; border: none; text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--text-main); padding: 0; margin: 0; width: 100%; }
 
-        /* AJUSTES DE ESPAÇAMENTO LUCRO */
+        /* AJUSTES DE ESPAÇAMENTO LUCRO SOLICITADOS */
         .big-price { font-size: 3.5rem; font-weight: 800; margin: 10px 0 0 0; letter-spacing: -2px; }
         .lucro-label { font-size: 0.8rem; font-weight: 600; color: var(--green); margin-top: -8px; margin-bottom: 22px; display: block; }
         #resMargem { font-weight: 700; color: var(--green); margin-top: 5px; display: block; }
 
+        .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray); }
+        .comp-bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 20px 0; background: var(--gray); }
+        .comp-item { height: 100%; transition: width 0.4s ease; }
+
+        .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 25px; }
+        .proj-card { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--gray); text-align: center; }
+        .meta-text { display: block; font-size: 0.7rem; color: var(--text-gray); margin-top: 8px; font-weight: 600; }
+
         .btn-action { padding: 12px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; text-transform: uppercase; transition: 0.2s; text-decoration: none; display: inline-block; text-align: center; }
         .btn-save { background: var(--green); color: white; width: 100%; margin-top: 15px; }
         .btn-pix { background: var(--green); color: white; width: 100%; max-width: 320px; margin-top: 15px; font-size: 0.9rem; }
+
+        .history-section { margin-top: 40px; border-top: 2px solid var(--gray); padding-top: 20px; }
+        .history-list { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 15px; }
+        .history-item { background: var(--card); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--gray); }
+        .btn-delete { background: var(--red); color: white; width: 30px; height: 30px; border-radius: 50%; border: none; cursor: pointer; font-weight: bold; }
 
         .footer-thanks { text-align: center; margin: 60px 0 20px; padding: 40px 20px; background: var(--card); border-radius: 20px; border: 1px solid var(--gray); }
         .pix-info { font-size: 0.75rem; color: var(--text-gray); margin-top: 20px; font-weight: 600; line-height: 1.8; }
@@ -85,31 +99,73 @@
                 <option value="€">EUR (€)</option>
                 <option value="£" selected>GBP (£)</option>
             </select>
-            <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema">🌓</button>
         </div>
     </div>
 
     <div class="layout">
-        <div class="card">
-            <h3>Custos do Produto</h3>
-            <label>Nome do Produto</label>
-            <input type="text" id="nomeProd" placeholder="Ex: Relógio Luxo">
-            <div class="input-grid" style="margin-top: 15px;">
-                <div><label>Custo Unitário</label><input type="number" id="custoProd" oninput="calcular()"></div>
-                <div><label>Frete</label><input type="number" id="frete" oninput="calcular()"></div>
+        <div>
+            <div class="card">
+                <h3>1. Identificação e Custos</h3>
+                <label>Nome do Produto</label>
+                <input type="text" id="nomeProd" placeholder="Ex: Produto A" style="margin-bottom: 15px;">
+                <div class="input-grid">
+                    <div><label>Custo Produto</label><input type="number" id="custoProd" placeholder="0.00" oninput="calcular()"></div>
+                    <div><label>Frete (Envio)</label><input type="number" id="frete" placeholder="0.00" oninput="calcular()"></div>
+                </div>
+                <div class="input-grid">
+                    <div><label>Importação (%)</label><input type="number" id="impImp" placeholder="0" oninput="calcular()"></div>
+                    <div><label>ICMS / IOF (%)</label><input type="number" id="icms" placeholder="0" oninput="calcular()"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>2. Operação & Marketing</h3>
+                <div class="input-grid">
+                    <div><label>Checkout (%)</label><input type="number" id="taxaCheck" placeholder="0" oninput="calcular()"></div>
+                    <div><label>Gateway (%)</label><input type="number" id="taxaGate" placeholder="0" oninput="calcular()"></div>
+                </div>
+                <div class="input-grid">
+                    <div><label>Imposto Venda (%)</label><input type="number" id="impVenda" placeholder="0" oninput="calcular()"></div>
+                    <div><label>Marketing (CPA %)</label><input type="number" id="mktPerc" value="25" oninput="calcular()"></div>
+                </div>
             </div>
         </div>
 
-        <div class="result-main">
-            <label style="color: var(--orange); font-weight: bold;">PREÇO DE VENDA</label>
-            <div class="editable-price-container">
-                <input type="number" id="precoVenda" value="100" oninput="calcular()">
+        <div>
+            <div class="result-main">
+                <label style="color: var(--orange); font-weight: bold;">PREÇO DE VENDA DEFINIDO</label>
+                <div class="editable-price-container">
+                    <input type="number" id="precoVenda" placeholder="0.00" oninput="calcular()">
+                </div>
+                <div id="resLucro" class="big-price">0,00</div>
+                <span class="lucro-label">(Lucro Estimado)</span>
+                <span id="resMargem" style="font-weight: 700; color: var(--green);">Margem Final: 0.0%</span>
             </div>
-            <div id="resLucro" class="big-price">0,00</div>
-            <span class="lucro-label">(Lucro Estimado)</span>
-            <span id="resMargem">Margem Final: 0.0%</span>
+
+            <div class="card" style="margin-top: 20px; margin-bottom: 10px;">
+                <h3>Análise de Viabilidade</h3>
+                <div class="detail-item"><span>Markup Real:</span> <span id="detMarkup" style="font-weight: bold;">0x</span></div>
+                <div class="detail-item"><span>CPA Break-even:</span> <span id="detBreakEven" style="color:var(--orange); font-weight:bold;">0</span></div>
+                <div class="detail-item"><span>Lucro Unitário:</span> <span id="detLucroUnit" style="color:var(--green); font-weight:bold;">0</span></div>
+                
+                <div class="comp-bar">
+                    <div id="barCusto" class="comp-item" style="background: #444;"></div>
+                    <div id="barMkt" class="comp-item" style="background: var(--orange);"></div>
+                    <div id="barTaxas" class="comp-item" style="background: var(--blue);"></div>
+                    <div id="barLucro" class="comp-item" style="background: var(--green);"></div>
+                </div>
+            </div>
             <button class="btn-action btn-save" onclick="salvarHistorico()">SALVAR NO HISTÓRICO</button>
         </div>
+    </div>
+
+    <h3>Projeção Mensal & Meta Diária</h3>
+    <div class="proj-grid" id="gridProj"></div>
+
+    <div class="history-section">
+        <h3>Histórico de Produtos Salvos</h3>
+        <div id="historicoLista" class="history-list"></div>
     </div>
 
     <div class="footer-thanks">
@@ -127,35 +183,96 @@
     function toggleTheme() {
         const body = document.body;
         const isLight = body.getAttribute('data-theme') === 'light';
-        body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+        if (isLight) { body.removeAttribute('data-theme'); localStorage.setItem('theme', 'dark'); }
+        else { body.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); }
     }
+    if (localStorage.getItem('theme') === 'light') document.body.setAttribute('data-theme', 'light');
 
     function calcular() {
         const s = document.getElementById('moeda').value;
         const v = (id) => parseFloat(document.getElementById(id).value) || 0;
-        const lucro = v('precoVenda') - (v('custoProd') + v('frete'));
-        const margem = v('precoVenda') > 0 ? (lucro / v('precoVenda')) * 100 : 0;
         
+        const precoVenda = v('precoVenda');
+        const custoLogistica = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms')) / 100);
+        const vlrTaxas = precoVenda * ((v('taxaCheck') + v('taxaGate') + v('impVenda')) / 100);
+        const vlrMkt = precoVenda * (v('mktPerc') / 100);
+        
+        const lucro = precoVenda - custoLogistica - vlrTaxas - vlrMkt;
+        const margem = precoVenda > 0 ? (lucro / precoVenda) * 100 : 0;
+        const markup = custoLogistica > 0 ? precoVenda / custoLogistica : 0;
+        const be = precoVenda - custoLogistica - vlrTaxas;
+
         document.getElementById('resLucro').innerText = `${s} ${lucro.toFixed(2)}`;
         document.getElementById('resLucro').style.color = lucro >= 0 ? 'var(--green)' : 'var(--red)';
         document.getElementById('resMargem').innerText = `Margem Final: ${margem.toFixed(1)}%`;
+        document.getElementById('detMarkup').innerText = `${markup.toFixed(2)}x`;
+        document.getElementById('detBreakEven').innerText = `${s} ${be.toFixed(2)}`;
+        document.getElementById('detLucroUnit').innerText = `${s} ${lucro.toFixed(2)}`;
+
+        if(precoVenda > 0) {
+            document.getElementById('barCusto').style.width = (custoLogistica / precoVenda * 100) + "%";
+            document.getElementById('barMkt').style.width = v('mktPerc') + "%";
+            document.getElementById('barTaxas').style.width = (vlrTaxas / precoVenda * 100) + "%";
+            document.getElementById('barLucro').style.width = (lucro > 0 ? (lucro / precoVenda * 100) : 0) + "%";
+        }
+
+        const escalas = [30, 150, 300, 1500, 3000];
+        document.getElementById('gridProj').innerHTML = escalas.map(q => {
+            const total = lucro * q;
+            return `<div class="proj-card"><small>${q} VENDAS</small><div style="color:${total >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:bold;">${s} ${total.toLocaleString()}</div><span class="meta-text">${(q/30).toFixed(0)}/dia</span></div>`;
+        }).join('');
     }
 
-    function fazerPix() {
-        const chavePix = "b8e85c5f-973c-4a64-8d9b-7b26e5f620fe";
-        navigator.clipboard.writeText(chavePix).then(() => {
-            document.getElementById('pixStatus').innerText = "CHAVE PIX COPIADA!";
-        });
+    function salvarHistorico() {
+        const item = {
+            id: Date.now(),
+            nome: document.getElementById('nomeProd').value || 'Produto',
+            lucro: document.getElementById('resLucro').innerText,
+            venda: document.getElementById('precoVenda').value,
+            margem: document.getElementById('resMargem').innerText,
+            moeda: document.getElementById('moeda').value,
+            data: new Date().toLocaleDateString()
+        };
+        let h = JSON.parse(localStorage.getItem('precific_h') || '[]');
+        h.unshift(item);
+        localStorage.setItem('precific_h', JSON.stringify(h.slice(0,10)));
+        renderHistorico();
     }
 
-    function novoProjeto() {
-        document.querySelectorAll('input').forEach(i => i.value = "");
-        calcular();
+    function renderHistorico() {
+        const h = JSON.parse(localStorage.getItem('precific_h') || '[]');
+        document.getElementById('historicoLista').innerHTML = h.map(i => `
+            <div class="history-item">
+                <div><strong>${i.nome}</strong><br><small>${i.data}</small></div>
+                <div style="text-align:right">
+                    <span style="color:var(--green)">${i.lucro}</span><br>
+                    <button class="btn-delete" onclick="excluirItem(${i.id})">X</button>
+                </div>
+            </div>
+        `).join('');
     }
 
-    function exportarCSV() { alert("Exportando..."); }
-    function salvarHistorico() { alert("Salvo!"); }
+    function excluirItem(id) {
+        let h = JSON.parse(localStorage.getItem('precific_h') || '[]');
+        localStorage.setItem('precific_h', JSON.stringify(h.filter(i => i.id !== id)));
+        renderHistorico();
+    }
 
+    function exportarCSV() {
+        const h = JSON.parse(localStorage.getItem('precific_h') || '[]');
+        let csv = "Produto,Venda,Lucro,Margem\n" + h.map(i => `${i.nome},${i.venda},${i.lucro},${i.margem}`).join("\n");
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'precificacao.csv');
+        a.click();
+    }
+
+    function novoProjeto() { document.querySelectorAll('input').forEach(i => i.value = ""); calcular(); }
+    function fazerPix() { navigator.clipboard.writeText("b8e85c5f-973c-4a64-8d9b-7b26e5f620fe"); document.getElementById('pixStatus').innerText="CHAVE COPIADA!"; }
+
+    renderHistorico();
     calcular();
 </script>
 </body>
