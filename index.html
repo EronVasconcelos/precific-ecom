@@ -33,7 +33,14 @@
 
         .card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        label { display: block; font-size: 0.7rem; color: var(--text-gray); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
+       .lucro-label { 
+    font-size: 0.8rem; 
+    font-weight: 600; 
+    color: var(--green); 
+    margin-top: -5px;    /* Puxa o texto para cima, colando no lucro */
+    margin-bottom: 25px; /* Cria o distanciamento da margem final */
+    display: block; 
+}
         
         input { width: 100%; background: var(--input-bg); border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: var(--text-main); outline: none; font-size: 1rem; box-sizing: border-box; }
         input:focus { border-color: var(--orange); }
@@ -73,7 +80,12 @@
         .editable-price-container { background: var(--card); border-radius: 12px; padding: 10px; margin: 15px auto; max-width: 250px; border: 1px solid var(--gray); }
         .editable-price-container input { background: transparent; border: none; text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--text-main); padding: 0; margin: 0; width: 100%; }
 
-        .big-price { font-size: 3.5rem; font-weight: 800; margin: 10px 0; letter-spacing: -2px; }
+        .big-price { 
+    font-size: 3.5rem; 
+    font-weight: 800; 
+    margin: 10px 0 0 0; /* Remove a margem de baixo para colar o texto seguinte */
+    letter-spacing: -2px; 
+}
         .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray); }
         
         .comp-bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 20px 0; background: var(--gray); }
@@ -355,4 +367,5 @@
 </script>
 </body>
 </html>
+
 
