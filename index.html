@@ -2,178 +2,183 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PrecificApp Global Full Control</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrecificApp Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f172a; --card: #1e293b; --text: #f8fafc;
-            --accent: #334155; --green: #22c55e; --red: #ef4444; --blue: #3b82f6;
+            --bg-grafite: #1c1c1c; /* Cinza Grafite Escuro */
+            --card-gray: #2a2a2a;
+            --orange: #ff6600; /* Laranja para Títulos */
+            --text-white: #ffffff;
+            --green: #22c55e;
+            --red: #ef4444;
+            --border: #3d3d3d;
         }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
-        .container { max-width: 900px; margin: 0 auto; }
-        
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 10px; }
-        
-        .card { background: var(--card); padding: 20px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--accent); }
-        h3 { margin-top: 0; font-size: 0.85rem; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; }
-        
-        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 600px) { .grid-inputs { grid-template-columns: 1fr; } }
 
-        label { display: block; font-size: 0.7rem; color: #94a3b8; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; }
-        input, select { 
-            width: 100%; background: #0f172a; border: 1px solid var(--accent); 
-            padding: 12px; border-radius: 10px; color: #fff; outline: none; font-size: 15px; transition: border-color 0.2s;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-grafite);
+            color: var(--text-white);
+            margin: 0;
+            padding: 20px;
         }
-        input:focus { border-color: var(--blue); }
 
-        .result-main { text-align: center; padding: 30px; background: linear-gradient(145deg, #1e293b, #0f172a); border: 2px solid var(--blue); border-radius: 20px; margin-bottom: 20px; }
-        .big-price { font-size: 3rem; font-weight: bold; margin: 10px 0; letter-spacing: -1px; }
+        .container { max-width: 1000px; margin: 0 auto; }
 
-        .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--accent); font-size: 0.9rem; }
+        h1, h2, h3 { color: var(--orange); text-transform: uppercase; letter-spacing: 1px; }
         
-        .projection-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 20px; }
-        .proj-card { background: var(--card); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--accent); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--orange); padding-bottom: 10px; margin-bottom: 30px; }
+
+        .grid-main { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+        @media (max-width: 850px) { .grid-main { grid-template-columns: 1fr; } }
+
+        .card { background: var(--card-gray); padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
+
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        label { display: block; font-size: 0.75rem; color: #bbbbbb; margin-bottom: 6px; font-weight: 600; }
+        
+        input, select {
+            width: 100%; background: #121212; border: 1px solid var(--border);
+            padding: 12px; border-radius: 8px; color: #fff; outline: none; font-size: 15px;
+            box-sizing: border-box;
+        }
+        input:focus { border-color: var(--orange); }
+
+        .result-box { background: #121212; padding: 30px; border-radius: 15px; border: 2px solid var(--orange); text-align: center; }
+        .big-price { font-size: 3rem; font-weight: bold; margin: 10px 0; }
+
+        .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+        
+        .projection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 20px; }
+        .proj-card { background: var(--card-gray); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1 style="font-size: 1.4rem; margin:0;">PrecificApp Global</h1>
-        <div style="min-width: 150px;">
-            <label>Símbolo Monetário</label>
-            <select id="moeda" onchange="configurarMercado()">
-                <option value="BRL">Real (R$)</option>
-                <option value="USD">Dólar ($)</option>
-                <option value="EUR">Euro (€)</option>
-                <option value="GBP">Libra (£)</option>
-            </select>
-        </div>
+        <h1 style="margin:0;">PrecificApp Pro</h1>
+        <select id="moeda" style="width: 100px;" onchange="calcular()">
+            <option value="R$">BRL</option>
+            <option value="$">USD</option>
+            <option value="€">EUR</option>
+            <option value="£">GBP</option>
+        </select>
     </div>
 
-    <div class="result-main">
-        <label style="color: var(--blue);">LUCRO LÍQUIDO FINAL</label>
-        <div id="resLucro" class="big-price">R$ 0,00</div>
-        <div id="resMargem" style="font-size: 1.1rem; font-weight: 600; color: var(--green);">Margem: 0%</div>
-    </div>
-
-    <div class="grid-inputs">
-        <div class="card">
-            <h3>1. Custos de Origem (China/Fornecedor)</h3>
-            <div style="margin-bottom: 15px;">
-                <label>Custo do Produto + Frete</label>
-                <input type="number" id="custoBase" value="0" oninput="calcular()">
-            </div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                <div><label>Imp. Importação (%)</label><input type="number" id="impImp" value="0" oninput="calcular()"></div>
-                <div><label>IOF / Câmbio (%)</label><input type="number" id="iof" value="4.38" oninput="calcular()"></div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>2. Venda e Operação</h3>
-            <div style="margin-bottom: 15px;">
+    <div class="grid-main">
+        <div>
+            <div class="card">
+                <h3>1. Valores de Base</h3>
+                <div class="input-row">
+                    <div><label>Custo do Produto</label><input type="number" id="custoProd" placeholder="0" oninput="calcular()"></div>
+                    <div><label>Frete (Envio)</label><input type="number" id="frete" placeholder="0" oninput="calcular()"></div>
+                </div>
                 <label>Preço de Venda Final</label>
-                <input type="number" id="precoVenda" value="0" oninput="calcular()">
+                <input type="number" id="precoVenda" placeholder="0" oninput="calcular()">
             </div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                <div><label>CPA (Marketing)</label><input type="number" id="cpa" value="0" oninput="calcular()"></div>
-                <div><label id="labelImpVenda">Imposto Venda (%)</label><input type="number" id="impVenda" value="6" oninput="calcular()"></div>
-            </div>
-        </div>
-    </div>
 
-    <div class="card">
-        <h3>3. Taxas de Plataforma e Transação</h3>
-        <div class="grid-inputs">
-            <div>
-                <label>Gateway + Checkout (%)</label>
-                <input type="number" id="taxaTransacaoPerc" value="7" oninput="calcular()">
+            <div class="card">
+                <h3>2. Impostos e Marketing</h3>
+                <div class="input-row">
+                    <div><label>Imp. Importação (%)</label><input type="number" id="impImp" placeholder="0" oninput="calcular()"></div>
+                    <div><label>ICMS / IOF (%)</label><input type="number" id="icms" placeholder="0" oninput="calcular()"></div>
+                </div>
+                <div class="input-row">
+                    <div><label>Marketing / CPA (%)</label><input type="number" id="mkt" placeholder="0" oninput="calcular()"></div>
+                    <div><label>Imposto Venda / NF (%)</label><input type="number" id="impVenda" placeholder="0" oninput="calcular()"></div>
+                </div>
             </div>
-            <div>
+
+            <div class="card">
+                <h3>3. Taxas de Transação</h3>
+                <div class="input-row">
+                    <div><label>Checkout (%)</label><input type="number" id="taxaCheckout" placeholder="0" oninput="calcular()"></div>
+                    <div><label>Gateway (%)</label><input type="number" id="taxaGateway" placeholder="0" oninput="calcular()"></div>
+                </div>
                 <label>Taxa Fixa por Pedido</label>
-                <input type="number" id="taxaFixa" value="0" oninput="calcular()">
+                <input type="number" id="taxaFixa" placeholder="0" oninput="calcular()">
+            </div>
+        </div>
+
+        <div>
+            <div class="result-box">
+                <label style="color: var(--orange);">LUCRO LÍQUIDO POR VENDA</label>
+                <div id="resLucro" class="big-price">0,00</div>
+                <div id="resMargem" style="font-weight: 600;">Margem: 0%</div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>Detalhamento Financeiro</h3>
+                <div class="detail-item"><span>Preço de Venda:</span> <span id="detVenda">0</span></div>
+                <div class="detail-item"><span>(-) Custo Prod + Frete:</span> <span id="detBase">0</span></div>
+                <div class="detail-item"><span>(-) Impostos Importação:</span> <span id="detImpOri">0</span></div>
+                <div class="detail-item"><span>(-) Marketing (CPA):</span> <span id="detMkt">0</span></div>
+                <div class="detail-item"><span>(-) Taxas (Check + Gate):</span> <span id="detTaxas">0</span></div>
+                <div class="detail-item"><span>(-) Impostos Venda:</span> <span id="detImpVenda">0</span></div>
+                <div class="detail-item" style="border:0; color: var(--orange); font-weight:bold; font-size: 1.1rem; margin-top: 10px;">
+                    <span>Markup:</span> <span id="detMarkup">0x</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="card">
-        <h3>Análise de Composição</h3>
-        <div class="detail-item"><span>Custo Total Aquisição Produto:</span> <span id="detTotalProd">0</span></div>
-        <div class="detail-item"><span>Total Impostos de Venda:</span> <span id="detTotalImp">0</span></div>
-        <div class="detail-item"><span>Total Taxas Financeiras:</span> <span id="detTaxas">0</span></div>
-        <div class="detail-item" style="border:0; color:var(--blue); font-weight:bold;"><span>Markup Real:</span> <span id="detMarkup">0x</span></div>
-    </div>
-
-    <h3>Projeção de Escala Mensal</h3>
-    <div class="projection-row" id="gridProj"></div>
+    <h3>Projeção de Escala</h3>
+    <div class="projection-grid" id="gridProj"></div>
 </div>
 
 <script>
-    const mercados = {
-        BRL: { simbolo: 'R$', imp: 6, iof: 4.38 },
-        USD: { simbolo: '$', imp: 0, iof: 0 },
-        EUR: { simbolo: '€', imp: 21, iof: 0 },
-        GBP: { simbolo: '£', imp: 20, iof: 0 }
-    };
-
-    function configurarMercado() {
-        const mKey = document.getElementById('moeda').value;
-        const m = mercados[mKey];
-        
-        // Apenas sugere os valores, mas permite o usuário mudar depois
-        document.getElementById('impVenda').value = m.imp;
-        document.getElementById('iof').value = m.iof;
-        
-        calcular();
-    }
-
     function calcular() {
-        const moeda = document.getElementById('moeda').value;
-        const s = mercados[moeda].simbolo;
-
+        const s = document.getElementById('moeda').value;
         const v = (id) => parseFloat(document.getElementById(id).value) || 0;
-        
-        // Inputs do usuário
-        const custoBase = v('custoBase'), impImp = v('impImp'), iof = v('iof');
-        const precoVenda = v('precoVenda'), cpa = v('cpa'), impVenda = v('impVenda');
-        const taxaTransacaoPerc = v('taxaTransacaoPerc'), taxaFixa = v('taxaFixa');
 
-        // 1. Custo Total de Importação/Compra
-        const custoTotalProduto = custoBase + (custoBase * ((impImp + iof) / 100));
-        
-        // 2. Custos Variáveis de Venda
-        const valorImpVenda = precoVenda * (impVenda / 100);
-        const valorTaxasTransacao = (precoVenda * (taxaTransacaoPerc / 100)) + taxaFixa;
+        // Entradas
+        const custoProd = v('custoProd'), frete = v('frete'), precoVenda = v('precoVenda');
+        const impImp = v('impImp'), icms = v('icms'), mkt = v('mkt'), impVenda = v('impVenda');
+        const taxaCheck = v('taxaCheckout'), taxaGate = v('taxaGateway'), taxaFixa = v('taxaFixa');
 
-        // 3. Lucro Líquido
-        const lucro = precoVenda - custoTotalProduto - cpa - valorImpVenda - valorTaxasTransacao;
+        // Cálculo Base
+        const custoLogistica = custoProd + frete;
+        const vlrImpOri = custoLogistica * ((impImp + icms) / 100);
+        const custoTotalOrigem = custoLogistica + vlrImpOri;
+
+        // Variáveis de Venda
+        const vlrMkt = precoVenda * (mkt / 100);
+        const vlrTaxas = (precoVenda * ((taxaCheck + taxaGateway) / 100)) + taxaFixa;
+        const vlrImpVenda = precoVenda * (impVenda / 100);
+
+        // Lucro
+        const lucro = precoVenda - custoTotalOrigem - vlrMkt - vlrTaxas - vlrImpVenda;
         const margem = precoVenda > 0 ? (lucro / precoVenda) * 100 : 0;
-        const markup = custoTotalProduto > 0 ? precoVenda / custoTotalProduto : 0;
+        const markup = custoTotalOrigem > 0 ? precoVenda / custoTotalOrigem : 0;
 
-        // Atualização da Tela
-        document.getElementById('resLucro').innerText = `${s} ${lucro.toFixed(2)}`;
-        document.getElementById('resLucro').style.color = lucro >= 0 ? 'var(--green)' : 'var(--red)';
-        document.getElementById('resMargem').innerText = `Margem: ${margem.toFixed(2)}%`;
+        // UI
+        const lucroEl = document.getElementById('resLucro');
+        lucroEl.innerText = `${s} ${lucro.toFixed(2)}`;
+        lucroEl.style.color = lucro >= 0 ? 'var(--green)' : 'var(--red)';
         
-        document.getElementById('detTotalProd').innerText = `${s} ${custoTotalProduto.toFixed(2)}`;
-        document.getElementById('detTotalImp').innerText = `${s} ${valorImpVenda.toFixed(2)}`;
-        document.getElementById('detTaxas').innerText = `${s} ${valorTaxasTransacao.toFixed(2)}`;
+        document.getElementById('resMargem').innerText = `Margem: ${margem.toFixed(2)}%`;
+        document.getElementById('resMargem').style.color = margem >= 0 ? 'var(--green)' : 'var(--red)';
+
+        document.getElementById('detVenda').innerText = `${s} ${precoVenda.toFixed(2)}`;
+        document.getElementById('detBase').innerText = `- ${s} ${custoLogistica.toFixed(2)}`;
+        document.getElementById('detImpOri').innerText = `- ${s} ${vlrImpOri.toFixed(2)}`;
+        document.getElementById('detMkt').innerText = `- ${s} ${vlrMkt.toFixed(2)}`;
+        document.getElementById('detTaxas').innerText = `- ${s} ${vlrTaxas.toFixed(2)}`;
+        document.getElementById('detImpVenda').innerText = `- ${s} ${vlrImpVenda.toFixed(2)}`;
         document.getElementById('detMarkup').innerText = `${markup.toFixed(2)}x`;
 
-        // Projeção
-        const escalas = [10, 100, 1000];
+        // Escala
+        const escalas = [10, 50, 100, 1000, 5000, 10000];
         document.getElementById('gridProj').innerHTML = escalas.map(q => `
             <div class="proj-card">
                 <small>${q} Vendas</small>
-                <div style="font-weight:600; color:${lucro >= 0 ? 'var(--green)' : 'var(--red)'}">${s} ${(lucro * q).toLocaleString()}</div>
+                <div style="color:${lucro >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:bold;">${s} ${(lucro * q).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
             </div>
         `).join('');
     }
 
-    // Inicialização
     calcular();
 </script>
 
