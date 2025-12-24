@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrecificApp Estratégico</title>
+    <title>PrecificApp Estratégico Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -46,6 +46,14 @@
         .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 25px; }
         .proj-card { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--gray); text-align: center; }
         .meta-text { display: block; font-size: 0.7rem; color: #888; margin-top: 8px; font-weight: 600; font-style: normal; }
+
+        /* Estilos do Histórico */
+        .history-section { margin-top: 40px; border-top: 2px solid var(--gray); padding-top: 20px; }
+        .history-list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 15px; }
+        .history-item { background: var(--card); padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--gray); }
+        .btn-action { padding: 10px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; }
+        .btn-save { background: var(--blue); color: white; width: 100%; margin-top: 10px; }
+        .btn-export { background: var(--gray); color: white; margin-left: 10px; padding: 5px 15px; }
     </style>
 </head>
 <body>
@@ -53,18 +61,23 @@
 <div class="container">
     <div class="header">
         <h1 style="margin:0; font-size: 1.5rem; color: var(--orange);">PrecificApp <span style="color:white">Consultor</span></h1>
-        <select id="moeda" style="background:#000; color:white; border:1px solid var(--orange); padding:8px; border-radius:8px;" onchange="calcular()">
-            <option value="R$">BRL (R$)</option>
-            <option value="$">USD ($)</option>
-            <option value="€">EUR (€)</option>
-            <option value="£" selected>GBP (£)</option>
-        </select>
+        <div style="display: flex; align-items: center;">
+            <select id="moeda" style="background:#000; color:white; border:1px solid var(--orange); padding:8px; border-radius:8px;" onchange="calcular()">
+                <option value="R$">BRL (R$)</option>
+                <option value="$">USD ($)</option>
+                <option value="€">EUR (€)</option>
+                <option value="£" selected>GBP (£)</option>
+            </select>
+            <button class="btn-export" onclick="exportarCSV()">Exportar Histórico</button>
+        </div>
     </div>
 
     <div class="layout">
         <div>
             <div class="card">
-                <h3>1. Custos Fixos & Logística</h3>
+                <h3>1. Identificação e Custos</h3>
+                <label>Nome do Produto (Para salvar)</label>
+                <input type="text" id="nomeProd" placeholder="Ex: Produto A" style="margin-bottom: 15px;">
                 <div class="input-grid">
                     <div><label>Custo Produto</label><input type="number" id="custoProd" placeholder="0.00" oninput="calcular()"></div>
                     <div><label>Frete (Envio)</label><input type="number" id="frete" placeholder="0.00" oninput="calcular()"></div>
@@ -97,6 +110,8 @@
                     <button class="btn-sug" onclick="aplicarSugestao(0.4)">40% Lucro</button>
                 </div>
             </div>
+            
+            <button class="btn-action btn-save" onclick="salvarHistorico()">SALVAR NO HISTÓRICO</button>
         </div>
 
         <div>
@@ -133,6 +148,12 @@
 
     <h3>Projeção Mensal & Meta Diária</h3>
     <div class="proj-grid" id="gridProj"></div>
+
+    <div class="history-section">
+        <h3>Histórico de Produtos Salvos</h3>
+        <div id="historicoLista" class="history-list">
+            </div>
+    </div>
 </div>
 
 <script>
@@ -140,40 +161,30 @@
         const v = (id) => parseFloat(document.getElementById(id).value) || 0;
         const custoTotalOrigem = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms')) / 100);
         const percentuaisVariaveis = (v('taxaCheck') + v('taxaGate') + v('impVenda') + v('mktPerc') + v('contingencia')) / 100;
-
         const divisor = 1 - percentuaisVariaveis - margemAlvo;
         if (divisor > 0) {
             document.getElementById('precoVenda').value = (custoTotalOrigem / divisor).toFixed(2);
             calcular();
-        } else {
-            alert("A soma de taxas e CPA é superior a 100%. Reduza os custos.");
         }
     }
 
     function calcular() {
         const s = document.getElementById('moeda').value;
         const v = (id) => isNaN(parseFloat(document.getElementById(id).value)) ? 0 : parseFloat(document.getElementById(id).value);
-
         const custoLogistica = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms'))/100);
         const precoVenda = v('precoVenda');
         const mktPerc = v('mktPerc');
         const vlrMkt = precoVenda * (mktPerc / 100);
         const vlrTaxasImp = precoVenda * ((v('taxaCheck') + v('taxaGate') + v('impVenda') + v('contingencia')) / 100);
-
         const lucro = precoVenda - custoLogistica - vlrMkt - vlrTaxasImp;
         const margem = precoVenda > 0 ? (lucro / precoVenda) * 100 : 0;
         const markup = custoLogistica > 0 ? precoVenda / custoLogistica : 0;
         const breakEvenCpa = precoVenda - custoLogistica - vlrTaxasImp;
 
-        // UI
-        const resL = document.getElementById('resLucro');
-        resL.innerText = `${s} ${lucro.toFixed(2)}`;
-        resL.style.color = lucro >= 0 ? 'var(--green)' : 'var(--red)';
-        
-        const resM = document.getElementById('resMargem');
-        resM.innerText = `Margem Final: ${margem.toFixed(1)}%`;
-        resM.style.color = margem >= 0 ? 'var(--green)' : 'var(--red)';
-
+        document.getElementById('resLucro').innerText = `${s} ${lucro.toFixed(2)}`;
+        document.getElementById('resLucro').style.color = lucro >= 0 ? 'var(--green)' : 'var(--red)';
+        document.getElementById('resMargem').innerText = `Margem Final: ${margem.toFixed(1)}%`;
+        document.getElementById('resMargem').style.color = margem >= 0 ? 'var(--green)' : 'var(--red)';
         document.getElementById('detMarkup').innerText = `${markup.toFixed(2)}x`;
         document.getElementById('detBreakEven').innerText = `${s} ${breakEvenCpa.toFixed(2)}`;
         document.getElementById('detLucroUnit').innerText = `${s} ${lucro.toFixed(2)}`;
@@ -181,7 +192,6 @@
         document.getElementById('detMktReal').innerText = `${s} ${vlrMkt.toFixed(2)}`;
         document.getElementById('detTaxasImp').innerText = `${s} ${vlrTaxasImp.toFixed(2)}`;
 
-        // Bars
         if(precoVenda > 0) {
             document.getElementById('barCusto').style.width = (custoLogistica / precoVenda * 100) + "%";
             document.getElementById('barMkt').style.width = (mktPerc) + "%";
@@ -189,22 +199,51 @@
             document.getElementById('barLucro').style.width = (lucro > 0 ? (lucro / precoVenda * 100) : 0) + "%";
         }
 
-        // Projeção: Atualizada para 10.000 Vendas
         const escalas = [30, 150, 300, 1500, 3000, 10000];
         document.getElementById('gridProj').innerHTML = escalas.map(q => {
-            const lucroTotal = lucro * q;
-            const pedidosDia = (q / 30).toFixed(q >= 300 ? 0 : 1);
-            return `
-                <div class="proj-card">
-                    <small>${q.toLocaleString()} VENDAS/MÊ</small>
-                    <div style="color:${lucroTotal >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:bold; margin-top:5px; font-size:1.1rem;">
-                        ${s} ${lucroTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}
-                    </div>
-                    <span class="meta-text">Média de ${pedidosDia} pedidos/dia</span>
-                </div>
-            `;
+            const lT = lucro * q;
+            return `<div class="proj-card"><small>${q} VENDAS/MÊS</small><div style="color:${lT >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:bold; font-size:1.1rem;">${s} ${lT.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div><span class="meta-text">Média de ${(q/30).toFixed(0)} pedidos/dia</span></div>`;
         }).join('');
     }
+
+    // Funções de Histórico
+    function salvarHistorico() {
+        const nome = document.getElementById('nomeProd').value || "Produto s/ Nome";
+        const lucro = document.getElementById('resLucro').innerText;
+        const margem = document.getElementById('resMargem').innerText;
+        const data = new Date().toLocaleDateString();
+
+        const item = { nome, lucro, margem, data };
+        let lista = JSON.parse(localStorage.getItem('historico_eron') || '[]');
+        lista.unshift(item);
+        localStorage.setItem('historico_eron', JSON.stringify(lista.slice(0, 10)));
+        renderHistorico();
+    }
+
+    function renderHistorico() {
+        const lista = JSON.parse(localStorage.getItem('historico_eron') || '[]');
+        document.getElementById('historicoLista').innerHTML = lista.map((i, index) => `
+            <div class="history-item">
+                <div><strong>${i.nome}</strong> <br> <small>${i.data}</small></div>
+                <div style="text-align: right;">
+                    <div style="color:var(--green); font-weight:bold;">${i.lucro}</div>
+                    <small>${i.margem}</small>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function exportarCSV() {
+        const lista = JSON.parse(localStorage.getItem('historico_eron') || '[]');
+        if(lista.length === 0) return alert("Histórico vazio!");
+        let csv = "data:text/csv;charset=utf-8,Produto;Lucro;Margem;Data\n";
+        lista.forEach(i => csv += `${i.nome};${i.lucro};${i.margem};${i.data}\n`);
+        const link = document.createElement("a");
+        link.href = encodeURI(csv); link.download = "historico_precificacao.csv";
+        link.click();
+    }
+
+    renderHistorico();
     calcular();
 </script>
 </body>
