@@ -72,7 +72,9 @@
         .pix-info { font-size: 0.75rem; color: var(--text-gray); margin-top: 20px; font-weight: 500; line-height: 1.8; }
         .legal-footer { text-align: center; padding: 20px; color: var(--text-gray); font-size: 0.7rem; border-top: 1px solid var(--gray); letter-spacing: 0.5px; }
         
-        .theme-toggle { background: var(--input-bg); border: 1px solid var(--gray); color: var(--text-main); padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; height: 40px; }
+        /* Botão de Tema Separado */
+        .theme-toggle { background: var(--input-bg); border: 1px solid var(--gray); color: var(--text-main); padding: 0; border-radius: 8px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; transition: 0.2s; }
+        .theme-toggle:hover { border-color: var(--orange); }
     </style>
 </head>
 <body>
@@ -86,15 +88,13 @@
         <div style="display: flex; gap: 10px; align-items: center;">
             <button class="btn-action btn-new" onclick="novoProjeto()">+ NOVO</button>
             <button class="btn-action btn-export" onclick="exportarCSV()">EXPORTAR CSV</button>
-            <div style="display: flex; gap: 5px; align-items: center; background: var(--input-bg); border-radius: 8px; border: 1px solid var(--gray); padding-right: 5px;">
-                <select id="moeda" style="width: auto; border: none;" onchange="calcular()">
-                    <option value="R$">BRL (R$)</option>
-                    <option value="$">USD ($)</option>
-                    <option value="€">EUR (€)</option>
-                    <option value="£" selected>GBP (£)</option>
-                </select>
-                <button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema" style="border: none;">🌓</button>
-            </div>
+            <select id="moeda" style="width: auto; height: 40px;" onchange="calcular()">
+                <option value="R$">BRL (R$)</option>
+                <option value="$">USD ($)</option>
+                <option value="€">EUR (€)</option>
+                <option value="£" selected>GBP (£)</option>
+            </select>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema">🌓</button>
         </div>
     </div>
 
