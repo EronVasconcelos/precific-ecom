@@ -59,7 +59,6 @@
         input { width: 100%; background: var(--input-bg); border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: var(--text-main); outline: none; font-size: 1rem; box-sizing: border-box; }
         input:focus { border-color: var(--orange); }
 
-        /* Ajuste de Moeda e Botões Superiores */
         select#moeda, .theme-toggle, .btn-new-top, .btn-export {
             height: 42px;
             display: flex;
@@ -99,9 +98,6 @@
         .lucro-label { font-size: 0.8rem; font-weight: 600; color: var(--green); margin-top: -5px; margin-bottom: 25px; display: block; }
         
         .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray); }
-        
-        .comp-bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 20px 0; background: var(--gray); }
-        .comp-item { height: 100%; transition: width 0.4s ease; }
 
         .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 25px; }
         .proj-card { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--gray); text-align: center; }
@@ -199,15 +195,8 @@
                 <div class="detail-item"><span>Markup Real:</span> <span id="detMarkup" style="font-weight: bold;">0x</span></div>
                 <div class="detail-item"><span>CPA Break-even:</span> <span id="detBreakEven" style="color:var(--orange); font-weight:bold;">0</span></div>
                 <div class="detail-item"><span>Lucro Unitário:</span> <span id="detLucroUnit" style="color:var(--green); font-weight:bold;">0</span></div>
-                
-                <div class="comp-bar">
-                    <div id="barCusto" class="comp-item" style="background: #444;"></div>
-                    <div id="barMkt" class="comp-item" style="background: var(--orange);"></div>
-                    <div id="barTaxas" class="comp-item" style="background: var(--blue);"></div>
-                    <div id="barLucro" class="comp-item" style="background: var(--green);"></div>
-                </div>
 
-                <div class="detail-item"><span>(-) Logística Total:</span> <span id="detTotalBase">0</span></div>
+                <div class="detail-item" style="margin-top:15px;"><span>(-) Logística Total:</span> <span id="detTotalBase">0</span></div>
                 <div class="detail-item"><span>(-) CPA Marketing:</span> <span id="detMktReal">0</span></div>
                 <div class="detail-item" style="border:0"><span>(-) Taxas + Impostos:</span> <span id="detTaxasImp">0</span></div>
             </div>
@@ -309,13 +298,6 @@
         document.getElementById('detTotalBase').innerText = `${s} ${custoLogistica.toFixed(2)}`;
         document.getElementById('detMktReal').innerText = `${s} ${vlrMkt.toFixed(2)}`;
         document.getElementById('detTaxasImp').innerText = `${s} ${vlrTaxasImp.toFixed(2)}`;
-
-        if(precoVenda > 0) {
-            document.getElementById('barCusto').style.width = (custoLogistica / precoVenda * 100) + "%";
-            document.getElementById('barMkt').style.width = (v('mktPerc')) + "%";
-            document.getElementById('barTaxas').style.width = (vlrTaxasImp / precoVenda * 100) + "%";
-            document.getElementById('barLucro').style.width = (lucro > 0 ? (lucro / precoVenda * 100) : 0) + "%";
-        }
 
         const escalas = [30, 150, 300, 1500, 3000, 10000];
         document.getElementById('gridProj').innerHTML = escalas.map(q => {
