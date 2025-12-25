@@ -9,58 +9,53 @@
         :root {
             /* Fundo Azul Marinho com Degradê Suave */
             --bg: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
-            --card: #1c1c1e; --orange: #ff6600;
-            --white: #ffffff; --green: #22c55e; --red: #ef4444;
-            --blue: #3b82f6; --gray: #3d3d3d; --input-bg: #252529;
-            --text-gray: #888888; --text-main: #ffffff;
-        }
-
-        [data-theme="light"] {
-            --bg: linear-gradient(135deg, #f0f2f5 0%, #d1d5db 100%);
-            --card: #ffffff; --white: #121214;
-            --gray: #d1d5db; --input-bg: #f9fafb;
-            --text-gray: #6b7280; --text-main: #1f2937;
+            /* Quadros com azul mais suave para combinar com o fundo */
+            --card: rgba(30, 41, 59, 0.7); 
+            --orange: #ff6600;
+            --white: #ffffff; 
+            --green: #22c55e; 
+            --red: #ef4444;
+            --blue: #3b82f6; 
+            --gray: rgba(255, 255, 255, 0.1); 
+            --input-bg: rgba(15, 23, 42, 0.8);
+            --text-gray: #94a3b8; 
+            --text-main: #f8fafc;
         }
 
         body { 
             font-family: 'Inter', sans-serif; 
             background: var(--bg); 
-            background-attachment: fixed; /* Mantém o degradê parado ao rolar */
+            background-attachment: fixed;
             color: var(--text-main); 
             margin: 0; 
             padding: 20px; 
             font-size: 14px; 
-            line-height: 1.5; 
-            transition: background 0.3s, color 0.3s;
             min-height: 100vh;
         }
 
         .container { max-width: 1050px; margin: 0 auto; }
         
-        /* HEADER EM UMA LINHA */
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--orange); padding-bottom: 15px; margin-bottom: 30px; gap: 10px; flex-wrap: nowrap; }
-        .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; color: var(--text-main); line-height: 1.2; }
+        /* HEADER */
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--orange); padding-bottom: 15px; margin-bottom: 30px; gap: 10px; }
+        .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; color: var(--text-main); }
         .brand span { color: var(--orange); }
 
         .header-actions { display: flex; gap: 8px; align-items: center; }
 
-        select#moeda, .theme-toggle, .btn-new-top, .btn-export {
+        select#moeda, .btn-new-top, .btn-export {
             height: 44px; display: flex; align-items: center; justify-content: center; padding: 0 15px;
-            border-radius: 8px; font-weight: bold; font-size: 0.85rem; box-sizing: border-box;
-            border: 1px solid var(--gray); background: var(--input-bg); color: var(--text-main);
-            line-height: 1; cursor: pointer; white-space: nowrap;
+            border-radius: 8px; font-weight: bold; border: 1px solid var(--gray); background: var(--input-bg); color: var(--text-main); cursor: pointer;
         }
 
-        .btn-new-top { background: var(--green); color: white; border: none; text-transform: uppercase; }
-        .btn-export { color: var(--orange); border-color: var(--orange); text-transform: uppercase; }
-        .theme-toggle { width: 44px; padding: 0; font-size: 1.1rem; }
+        .btn-new-top { background: var(--green); color: white; border: none; }
+        .btn-export { color: var(--orange); border-color: var(--orange); }
 
         h3 { color: var(--orange); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 20px; }
 
         .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .header { flex-wrap: wrap; } }
+        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
 
-        .card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); margin-bottom: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); }
+        .card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); margin-bottom: 20px; backdrop-filter: blur(10px); }
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         label { display: block; font-size: 0.7rem; color: var(--text-gray); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
         
@@ -68,13 +63,13 @@
 
         /* CONSULTORIA DE MARGEM */
         .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-        .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 0.8rem; }
+        .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; }
         .btn-sug:hover { background: var(--orange); color: white; }
 
-        /* RESULTADOS E ESPAÇAMENTO LUCRO ESTIMADO */
+        /* RESULTADOS */
         .result-main { background: var(--input-bg); border: 2px solid var(--orange); border-radius: 20px; padding: 30px; text-align: center; }
-        .editable-price-container { background: var(--card); border-radius: 12px; padding: 10px; margin: 15px auto; max-width: 250px; border: 1px solid var(--gray); }
-        .editable-price-container input { background: transparent; border: none; text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--text-main); padding: 0; margin: 0; width: 100%; }
+        .editable-price-container { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 10px; margin: 15px auto; max-width: 250px; border: 1px solid var(--gray); }
+        .editable-price-container input { background: transparent; border: none; text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--text-main); width: 100%; }
 
         .big-price { font-size: 3.5rem; font-weight: 800; margin: 10px 0 0 0; letter-spacing: -2px; }
         .lucro-label { font-size: 0.8rem; font-weight: 600; color: var(--green); margin-top: -5px; margin-bottom: 25px; display: block; }
@@ -88,18 +83,15 @@
         .proj-card { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--gray); text-align: center; }
         .meta-text { display: block; font-size: 0.7rem; color: var(--text-gray); margin-top: 8px; font-weight: 600; }
 
-        .btn-action { padding: 12px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; text-transform: uppercase; transition: 0.2s; text-decoration: none; display: inline-block; text-align: center; }
-        .btn-save { background: var(--green); color: white; width: 100%; margin-top: 15px; }
-        .btn-pix { background: var(--green); color: white; width: 100%; max-width: 320px; margin-top: 15px; font-size: 0.9rem; }
-        .btn-delete { background: var(--red); color: white; width: 30px; height: 30px; border-radius: 50%; border: none; cursor: pointer; font-weight: bold; }
+        .btn-action { padding: 15px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; text-transform: uppercase; transition: 0.2s; width: 100%; }
+        .btn-save { background: var(--green); color: white; margin-top: 15px; }
+        .btn-pix { background: var(--green); color: white; max-width: 320px; margin-top: 15px; }
 
-        .history-section { margin-top: 40px; border-top: 2px solid var(--gray); padding-top: 20px; }
-        .history-list { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 15px; }
-        .history-item { background: var(--card); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--gray); }
+        .history-item { background: var(--card); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--gray); margin-bottom: 10px; }
+        .btn-delete { background: var(--red); color: white; width: 30px; height: 30px; border-radius: 50%; border: none; cursor: pointer; }
 
         .footer-thanks { text-align: center; margin: 60px 0 20px; padding: 40px 20px; background: var(--card); border-radius: 20px; border: 1px solid var(--gray); }
-        .pix-info { font-size: 0.75rem; color: var(--text-gray); margin-top: 20px; font-weight: 600; line-height: 1.8; }
-        .legal-footer { text-align: center; padding: 20px; color: var(--text-gray); font-size: 0.7rem; border-top: 1px solid var(--gray); letter-spacing: 0.5px; }
+        .pix-info { font-size: 0.75rem; color: var(--text-gray); margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -114,12 +106,11 @@
             <button class="btn-new-top" onclick="novoProjeto()">+ NOVO</button>
             <button class="btn-export" onclick="exportarCSV()">EXPORTAR CSV</button>
             <select id="moeda" onchange="calcular()">
-                <option value="R$">BRL (R$)</option>
+                <option value="R$" selected>BRL (R$)</option>
                 <option value="$">USD ($)</option>
                 <option value="€">EUR (€)</option>
-                <option value="£" selected>GBP (£)</option>
+                <option value="£">GBP (£)</option>
             </select>
-            <button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema">🌓</button>
         </div>
     </div>
 
@@ -128,7 +119,7 @@
             <div class="card">
                 <h3>1. Identificação e Custos</h3>
                 <label>Nome do Produto</label>
-                <input type="text" id="nomeProd" placeholder="Ex: Produto A" style="margin-bottom: 15px;">
+                <input type="text" id="nomeProd" placeholder="Ex: Smartwatch Ultra" style="margin-bottom: 15px;">
                 <div class="input-grid">
                     <div><label>Custo Produto</label><input type="number" id="custoProd" placeholder="0.00" oninput="calcular()"></div>
                     <div><label>Frete (Envio)</label><input type="number" id="frete" placeholder="0.00" oninput="calcular()"></div>
@@ -153,7 +144,7 @@
                 <input type="number" id="mktPerc" value="25" oninput="calcular()">
             </div>
 
-            <div class="card" style="background: var(--input-bg); border: 1px dashed var(--orange);">
+            <div class="card" style="border: 1px dashed var(--orange);">
                 <h3>💡 Consultoria de Margem</h3>
                 <div class="btn-group">
                     <button class="btn-sug" onclick="aplicarSugestao(0.2)">20% Lucro</button>
@@ -171,16 +162,16 @@
                 </div>
                 <div id="resLucro" class="big-price">0,00</div>
                 <span class="lucro-label">(Lucro Estimado)</span>
-                <div id="resMargem" style="font-weight: 700; color: var(--green);">Margem Final: 0%</div>
+                <div id="resMargem">Margem Final: 0%</div>
             </div>
 
-            <div class="card" style="margin-top: 20px; margin-bottom: 10px;">
+            <div class="card" style="margin-top: 20px;">
                 <h3>Análise de Viabilidade</h3>
                 <div class="detail-item"><span>Markup Real:</span> <span id="detMarkup" style="font-weight: bold;">0x</span></div>
                 <div class="detail-item"><span>CPA Break-even:</span> <span id="detBreakEven" style="color:var(--orange); font-weight:bold;">0</span></div>
                 
                 <div class="comp-bar">
-                    <div id="barCusto" class="comp-item" style="background: #444;"></div>
+                    <div id="barCusto" class="comp-item" style="background: #475569;"></div>
                     <div id="barMkt" class="comp-item" style="background: var(--orange);"></div>
                     <div id="barTaxas" class="comp-item" style="background: var(--blue);"></div>
                     <div id="barLucro" class="comp-item" style="background: var(--green);"></div>
@@ -197,33 +188,23 @@
     <h3>Projeção Mensal & Meta Diária</h3>
     <div class="proj-grid" id="gridProj"></div>
 
-    <div class="history-section">
-        <h3>Histórico de Produtos Salvos</h3>
-        <div id="historicoLista" class="history-list"></div>
+    <div style="margin-top: 40px;">
+        <h3>Histórico de Produtos</h3>
+        <div id="historicoLista"></div>
     </div>
 
     <div class="footer-thanks">
-        <h2 style="color: var(--orange); margin-top:0;">Obrigado por utilizar o PrecificEcom!</h2>
+        <h2 style="color: var(--orange);">Obrigado por utilizar o PrecificEcom!</h2>
         <button class="btn-action btn-pix" onclick="fazerPix()">APOIAR O PROJETO (VIA PIX)</button>
         <div class="pix-info">
             CNPJ: 49.276.400/0001-13 <br>
-            OTIMIZA NEGOCIOS DIGITAIS LTDA | MEDIATION DIGITAL
+            OTIMIZA NEGOCIOS DIGITAIS LTDA
         </div>
         <p id="pixStatus" style="font-size: 0.75rem; color: var(--green); margin-top: 10px; font-weight: bold;"></p>
-    </div>
-
-    <div class="legal-footer">
-        © 2025 PrecificEcom - Todos os direitos reservados.
     </div>
 </div>
 
 <script>
-    function toggleTheme() {
-        const body = document.body;
-        const isLight = body.getAttribute('data-theme') === 'light';
-        body.setAttribute('data-theme', isLight ? 'dark' : 'light');
-    }
-
     function fazerPix() {
         navigator.clipboard.writeText("b8e85c5f-973c-4a64-8d9b-7b26e5f620fe").then(() => {
             document.getElementById('pixStatus').innerText = "CHAVE PIX COPIADA!";
@@ -244,21 +225,18 @@
     function calcular() {
         const s = document.getElementById('moeda').value;
         const v = (id) => parseFloat(document.getElementById(id).value) || 0;
-        
         const precoVenda = v('precoVenda');
         const custoLogistica = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms'))/100);
         const vlrTaxasImp = precoVenda * ((v('taxaCheck') + v('taxaGate') + v('impVenda') + v('contingencia')) / 100);
         const vlrMkt = precoVenda * (v('mktPerc') / 100);
-        
         const lucro = precoVenda - custoLogistica - vlrMkt - vlrTaxasImp;
         const margem = precoVenda > 0 ? (lucro / precoVenda) * 100 : 0;
-        const be = precoVenda - custoLogistica - vlrTaxasImp;
 
         document.getElementById('resLucro').innerText = `${s} ${lucro.toFixed(2)}`;
         document.getElementById('resLucro').style.color = lucro >= 0 ? 'var(--green)' : 'var(--red)';
         document.getElementById('resMargem').innerText = `Margem Final: ${margem.toFixed(1)}%`;
         document.getElementById('detMarkup').innerText = `${custoLogistica > 0 ? (precoVenda/custoLogistica).toFixed(2) : 0}x`;
-        document.getElementById('detBreakEven').innerText = `${s} ${be.toFixed(2)}`;
+        document.getElementById('detBreakEven').innerText = `${s} ${(precoVenda - custoLogistica - vlrTaxasImp).toFixed(2)}`;
         document.getElementById('detTotalBase').innerText = `${s} ${custoLogistica.toFixed(2)}`;
         document.getElementById('detMktReal').innerText = `${s} ${vlrMkt.toFixed(2)}`;
         document.getElementById('detTaxasImp').innerText = `${s} ${vlrTaxasImp.toFixed(2)}`;
@@ -273,12 +251,12 @@
         const escalas = [30, 300, 1500, 3000];
         document.getElementById('gridProj').innerHTML = escalas.map(q => {
             const total = lucro * q;
-            return `<div class="proj-card"><small>${q} VENDAS</small><div style="color:${total >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:bold;">${s} ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div><span class="meta-text">${(q/30).toFixed(0)}/dia</span></div>`;
+            return `<div class="proj-card"><small>${q} VENDAS</small><div style="color:${total >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:bold;">${s} ${total.toLocaleString('pt-BR')}</div><span class="meta-text">${(q/30).toFixed(0)}/dia</span></div>`;
         }).join('');
     }
 
     function salvarHistorico() {
-        const item = { id: Date.now(), nome: document.getElementById('nomeProd').value || "Produto", lucro: document.getElementById('resLucro').innerText, data: new Date().toLocaleDateString() };
+        const item = { id: Date.now(), nome: document.getElementById('nomeProd').value || "Produto", lucro: document.getElementById('resLucro').innerText };
         let h = JSON.parse(localStorage.getItem('precific_db') || '[]');
         h.unshift(item);
         localStorage.setItem('precific_db', JSON.stringify(h.slice(0, 10)));
@@ -303,12 +281,11 @@
 
     function exportarCSV() {
         const h = JSON.parse(localStorage.getItem('precific_db') || '[]');
-        let csv = "Produto,Lucro,Data\n" + h.map(i => `${i.nome},${i.lucro.replace(',', '.')},${i.data}`).join("\n");
+        let csv = "Produto,Lucro\n" + h.map(i => `${i.nome},${i.lucro}`).join("\n");
         const blob = new Blob([csv], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url;
-        a.download = 'historico.csv';
+        a.href = URL.createObjectURL(blob);
+        a.download = 'precificacao.csv';
         a.click();
     }
 
