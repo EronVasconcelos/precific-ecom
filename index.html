@@ -11,7 +11,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="logo-svg.svg">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --bg: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
@@ -32,11 +33,11 @@
             --text-gray: #6b7280; --text-main: #1f2937;
         }
 
-        body { font-family: 'Inter', sans-serif; background: var(--bg); background-attachment: fixed; color: var(--text-main); margin: 0; padding: 20px; font-size: 14px; min-height: 100vh; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); background-attachment: fixed; color: var(--text-main); margin: 0; padding: 20px; font-size: 14px; min-height: 100vh; }
         .container { max-width: 1050px; margin: 0 auto; }
         
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--orange); padding-bottom: 15px; margin-bottom: 30px; gap: 10px; flex-wrap: wrap; }
-        .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; color: var(--text-main); line-height: 1.2; }
+        .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; font-weight: 800; line-height: 1.2; }
         .brand span { color: var(--orange); }
 
         @media (max-width: 600px) {
@@ -44,7 +45,7 @@
             .brand { width: 100%; margin-bottom: 10px; }
         }
 
-        h3 { color: var(--orange); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 20px; margin-top: 40px; }
+        h3 { color: var(--orange); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 20px; margin-top: 40px; font-weight: 700; }
 
         .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
@@ -53,48 +54,61 @@
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         label { display: block; font-size: 0.7rem; color: var(--text-gray); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
         
-        input { width: 100%; background: var(--input-bg); border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: var(--text-main); outline: none; font-size: 1rem; box-sizing: border-box; }
+        input { width: 100%; background: var(--input-bg); border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: var(--text-main); font-family: 'Outfit'; outline: none; font-size: 1rem; box-sizing: border-box; }
         input:focus { border-color: var(--orange); }
 
-        select#moeda, .theme-toggle, .btn-new-top, .btn-export {
+        select, .theme-toggle, .btn-new-top, .btn-export {
             height: 42px; display: flex; align-items: center; justify-content: center; padding: 0 15px;
-            border-radius: 8px; font-weight: bold; border: 1px solid var(--gray); background: var(--input-bg); color: var(--text-main); cursor: pointer;
+            border-radius: 8px; font-weight: bold; border: 1px solid var(--gray); background: var(--input-bg); color: var(--text-main); font-family: 'Outfit'; cursor: pointer;
         }
         .btn-new-top { background: var(--green); color: white; border: none; text-transform: uppercase; }
         .btn-export { color: var(--orange); border-color: var(--orange); text-transform: uppercase; }
 
         .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-        .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; }
+        .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; font-family: 'Outfit'; }
         .btn-sug:hover { background: var(--orange); color: white; }
 
         .result-main { background: var(--input-bg); border: 2px solid var(--orange); border-radius: 20px; padding: 30px; text-align: center; }
-        .editable-price-container { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 10px; margin: 15px auto; max-width: 250px; border: 1px solid var(--gray); position: relative; }
-        .editable-price-container input { background: transparent; border: none; text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--text-main); padding: 0; width: 100%; }
         
-        .price-wrapper { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px; }
-        .currency-label { font-size: 2.5rem; font-weight: 800; color: var(--green); }
-        .big-price { font-size: 3.5rem; font-weight: 800; color: var(--green); letter-spacing: -2px; }
-        .lucro-sub { font-size: 0.75rem; color: var(--green); display: block; font-weight: bold; margin-top: -5px; }
+        /* Campo de preço com moeda conforme imagem */
+        .editable-price-container { 
+            background: rgba(0,0,0,0.2); 
+            border-radius: 12px; 
+            padding: 15px; 
+            margin: 15px auto; 
+            max-width: 280px; 
+            border: 1px solid var(--gray); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: 10px;
+        }
+        .currency-input-label { font-size: 1.5rem; font-weight: 800; color: var(--text-gray); opacity: 0.5; }
+        .editable-price-container input { background: transparent; border: none; text-align: left; font-size: 3rem; font-weight: 800; color: var(--text-main); padding: 0; width: 150px; }
 
-        .margem-badge { display: inline-block; margin-top: 15px; padding: 8px 20px; background: rgba(34, 197, 94, 0.1); border: 1px solid var(--green); border-radius: 30px; color: var(--green); font-weight: 700; font-size: 0.95rem; }
+        .price-wrapper { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; }
+        .currency-label { font-size: 2.8rem; font-weight: 800; color: var(--green); }
+        .big-price { font-size: 3.8rem; font-weight: 800; color: var(--green); letter-spacing: -2px; }
+        .lucro-sub { font-size: 0.8rem; color: var(--green); display: block; font-weight: 700; margin-top: -5px; }
+
+        .margem-badge { display: inline-block; margin-top: 20px; padding: 10px 25px; background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 30px; color: var(--green); font-weight: 700; font-size: 1rem; }
         
-        .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray); }
+        .detail-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--gray); }
 
-        .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 25px; }
+        .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 25px; }
         .proj-card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); text-align: center; }
-        .proj-card small { color: var(--text-gray); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
-        .proj-val { font-size: 1.6rem; font-weight: 800; color: var(--green); margin: 10px 0; }
-        .meta-text { color: var(--text-gray); font-size: 0.8rem; }
+        .proj-card small { color: var(--text-gray); text-transform: uppercase; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; }
+        .proj-val { font-size: 1.8rem; font-weight: 800; color: var(--green); margin: 12px 0; }
+        .meta-text { color: var(--text-gray); font-size: 0.85rem; }
 
-        .btn-action { padding: 15px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; text-transform: uppercase; width: 100%; transition: 0.2s; }
+        .btn-action { padding: 15px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; text-transform: uppercase; width: 100%; transition: 0.2s; font-family: 'Outfit'; }
         .btn-save { background: var(--green); color: white; margin-top: 15px; }
         
         .history-list { margin-top: 15px; }
-        .history-item { background: var(--card); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--gray); margin-bottom: 10px; }
-        .empty-history { border: 2px dashed var(--gray); border-radius: 16px; padding: 40px; text-align: center; color: var(--text-gray); font-size: 1.1rem; }
+        .empty-history { border: 2px dashed var(--gray); border-radius: 16px; padding: 50px; text-align: center; color: var(--text-gray); font-size: 1.2rem; }
 
         .footer-thanks { text-align: center; margin: 60px 0 20px; padding: 40px 20px; background: var(--card); border-radius: 20px; border: 1px solid var(--gray); }
-        .escalar-text { color: var(--text-gray); margin: 15px auto; max-width: 600px; font-size: 0.95rem; }
+        .escalar-text { color: var(--text-gray); margin: 15px auto; max-width: 600px; font-size: 1rem; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -159,8 +173,9 @@
 
         <div>
             <div class="result-main">
-                <label style="color: var(--orange); font-weight: 800; font-size: 0.8rem; letter-spacing: 1px;">PREÇO DE VENDA DEFINIDO</label>
+                <label style="color: var(--orange); font-weight: 800; font-size: 0.8rem; letter-spacing: 1.5px;">PREÇO DE VENDA DEFINIDO</label>
                 <div class="editable-price-container">
+                    <span id="inputSinal" class="currency-input-label">R$</span>
                     <input type="number" id="precoVenda" oninput="calcular()" placeholder="0,00">
                 </div>
                 
@@ -186,16 +201,16 @@
     <h3>PROJEÇÃO MENSAL & META DIÁRIA</h3>
     <div class="proj-grid" id="gridProj"></div>
 
-    <hr style="margin-top: 40px; border: 0; border-top: 1px solid var(--gray);">
+    <hr style="margin-top: 50px; border: 0; border-top: 1px solid var(--gray); opacity: 0.3;">
 
     <h3>HISTÓRICO DE PRODUTOS SALVOS</h3>
     <div id="historicoLista" class="history-list"></div>
 
     <div class="footer-thanks">
-        <h2 style="color: var(--orange); margin: 0;">Obrigado por utilizar o PrecificEcom!</h2>
+        <h2 style="color: var(--orange); margin: 0; font-weight: 800;">Obrigado por utilizar o PrecificEcom!</h2>
         <p class="escalar-text">Ferramenta desenvolvida para ajudar empreendedores a escalarem com lucro real e sem dores de cabeça.</p>
-        <button class="btn-action" style="background: var(--green); color: white; max-width: 320px; margin-top: 15px;" onclick="fazerPix()">APOIAR O PROJETO (VIA PIX)</button>
-        <div style="font-size: 0.7rem; color: var(--text-gray); margin-top: 20px;">CNPJ: 49.276.400/0001-13</div>
+        <button class="btn-action" style="background: var(--green); color: white; max-width: 320px; margin-top: 20px;" onclick="fazerPix()">APOIAR O PROJETO (VIA PIX)</button>
+        <div style="font-size: 0.75rem; color: var(--text-gray); margin-top: 25px; font-weight: 600;">CNPJ: 49.276.400/0001-13</div>
         <p id="pixStatus" style="font-size: 0.75rem; color: var(--green); margin-top: 10px; font-weight: bold;"></p>
     </div>
 </div>
@@ -232,6 +247,9 @@
         const s = document.getElementById('moeda').value;
         const v = (id) => parseFloat(document.getElementById(id).value) || 0;
 
+        document.getElementById('inputSinal').innerText = s;
+        document.getElementById('resSinal').innerText = s;
+
         const custoLog = (v('custoProd') + v('frete')) * (1 + (v('impImp') + v('icms'))/100);
         const precoVenda = v('precoVenda');
         const vlrMkt = precoVenda * (v('mktPerc') / 100);
@@ -241,7 +259,6 @@
         const markup = custoLog > 0 ? precoVenda / custoLog : 0;
         const breakEven = precoVenda - custoLog - vlrTaxas;
 
-        document.getElementById('resSinal').innerText = s;
         document.getElementById('resLucro').innerText = lucro.toFixed(2).replace('.', ',');
         const cor = lucro >= 0 ? 'var(--green)' : 'var(--red)';
         document.getElementById('resLucro').style.color = cor;
@@ -252,14 +269,16 @@
         document.getElementById('detBreakEven').innerText = `${s} ${breakEven.toFixed(2).replace('.', ',')}`;
         document.getElementById('detLucroUnit').innerText = `${s} ${lucro.toFixed(2).replace('.', ',')}`;
 
+        // Os 6 quadros de projeção conforme imagem
         const escalas = [30, 150, 300, 1500, 3000, 10000];
         document.getElementById('gridProj').innerHTML = escalas.map(q => {
             const lT = lucro * q;
+            const metaDia = Math.ceil(q / 30);
             return `
                 <div class="proj-card">
                     <small>${q} VENDAS/MÊS</small>
                     <div class="proj-val" style="color:${lT >= 0 ? 'var(--green)' : 'var(--red)'}">${s} ${lT.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
-                    <div class="meta-text">Média de ${(q/30).toFixed(0)} pedidos/dia</div>
+                    <div class="meta-text">Média de ${metaDia} pedidos/dia</div>
                 </div>`;
         }).join('');
     }
@@ -291,6 +310,7 @@
     
     function exportarCSV() {
         const lista = JSON.parse(localStorage.getItem('precific_db') || '[]');
+        if(lista.length === 0) return alert("Histórico vazio!");
         let csv = "Produto;Lucro;Data\n" + lista.map(i => `${i.nome};${i.lucro};${i.data}`).join("\n");
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
         const link = document.createElement("a");
