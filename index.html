@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="logo-svg.svg">
 
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -33,11 +33,11 @@
             --text-gray: #6b7280; --text-main: #1f2937;
         }
 
-        body { font-family: 'Outfit', sans-serif; background: var(--bg); background-attachment: fixed; color: var(--text-main); margin: 0; padding: 20px; font-size: 14px; min-height: 100vh; }
+        body { font-family: 'Roboto', sans-serif; background: var(--bg); background-attachment: fixed; color: var(--text-main); margin: 0; padding: 20px; font-size: 14px; min-height: 100vh; transition: background 0.3s; }
         .container { max-width: 1050px; margin: 0 auto; }
         
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--orange); padding-bottom: 15px; margin-bottom: 30px; gap: 10px; flex-wrap: wrap; }
-        .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; font-weight: 800; line-height: 1.2; }
+        .brand h1 { margin: 0; font-size: 1.8rem; letter-spacing: -0.5px; font-weight: 900; }
         .brand span { color: var(--orange); }
 
         @media (max-width: 600px) {
@@ -45,7 +45,7 @@
             .brand { width: 100%; margin-bottom: 10px; }
         }
 
-        h3 { color: var(--orange); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 20px; margin-top: 40px; font-weight: 700; }
+        h3 { color: var(--orange); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.2px; margin-bottom: 20px; font-weight: 700; }
 
         .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
@@ -54,61 +54,49 @@
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         label { display: block; font-size: 0.7rem; color: var(--text-gray); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
         
-        input { width: 100%; background: var(--input-bg); border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: var(--text-main); font-family: 'Outfit'; outline: none; font-size: 1rem; box-sizing: border-box; }
+        input { width: 100%; background: var(--input-bg); border: 1px solid var(--gray); padding: 12px; border-radius: 8px; color: var(--text-main); font-family: 'Roboto'; outline: none; font-size: 1rem; box-sizing: border-box; }
         input:focus { border-color: var(--orange); }
 
         select, .theme-toggle, .btn-new-top, .btn-export {
             height: 42px; display: flex; align-items: center; justify-content: center; padding: 0 15px;
-            border-radius: 8px; font-weight: bold; border: 1px solid var(--gray); background: var(--input-bg); color: var(--text-main); font-family: 'Outfit'; cursor: pointer;
+            border-radius: 8px; font-weight: bold; border: 1px solid var(--gray); background: var(--input-bg); color: var(--text-main); font-family: 'Roboto'; cursor: pointer;
         }
-        .btn-new-top { background: var(--green); color: white; border: none; text-transform: uppercase; }
-        .btn-export { color: var(--orange); border-color: var(--orange); text-transform: uppercase; }
+        .btn-new-top { background: var(--green); color: white; border: none; }
+        .btn-export { color: var(--orange); border-color: var(--orange); }
 
         .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-        .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; font-family: 'Outfit'; }
+        .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.8rem; font-family: 'Roboto'; }
         .btn-sug:hover { background: var(--orange); color: white; }
 
+        /* Resultado Estilo Imagem */
         .result-main { background: var(--input-bg); border: 2px solid var(--orange); border-radius: 20px; padding: 30px; text-align: center; }
-        
-        /* Campo de preço com moeda conforme imagem */
         .editable-price-container { 
-            background: rgba(0,0,0,0.2); 
-            border-radius: 12px; 
-            padding: 15px; 
-            margin: 15px auto; 
-            max-width: 280px; 
-            border: 1px solid var(--gray); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            gap: 10px;
+            background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px; margin: 15px auto; max-width: 280px; 
+            border: 1px solid var(--gray); display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        .currency-input-label { font-size: 1.5rem; font-weight: 800; color: var(--text-gray); opacity: 0.5; }
-        .editable-price-container input { background: transparent; border: none; text-align: left; font-size: 3rem; font-weight: 800; color: var(--text-main); padding: 0; width: 150px; }
+        .currency-input-label { font-size: 1.5rem; font-weight: 700; color: var(--text-gray); opacity: 0.6; }
+        .editable-price-container input { background: transparent; border: none; text-align: left; font-size: 3rem; font-weight: 900; color: var(--text-main); width: 160px; }
 
-        .price-wrapper { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; }
-        .currency-label { font-size: 2.8rem; font-weight: 800; color: var(--green); }
-        .big-price { font-size: 3.8rem; font-weight: 800; color: var(--green); letter-spacing: -2px; }
-        .lucro-sub { font-size: 0.8rem; color: var(--green); display: block; font-weight: 700; margin-top: -5px; }
-
-        .margem-badge { display: inline-block; margin-top: 20px; padding: 10px 25px; background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 30px; color: var(--green); font-weight: 700; font-size: 1rem; }
+        .price-wrapper { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px; }
+        .currency-label { font-size: 2.8rem; font-weight: 900; color: var(--green); }
+        .big-price { font-size: 3.8rem; font-weight: 900; color: var(--green); letter-spacing: -1.5px; }
+        
+        .margem-badge { display: inline-block; margin-top: 15px; padding: 8px 22px; background: rgba(34, 197, 94, 0.1); border: 1px solid var(--green); border-radius: 30px; color: var(--green); font-weight: 700; font-size: 1rem; }
         
         .detail-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--gray); }
 
         .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 25px; }
         .proj-card { background: var(--card); padding: 25px; border-radius: 16px; border: 1px solid var(--gray); text-align: center; }
-        .proj-card small { color: var(--text-gray); text-transform: uppercase; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; }
-        .proj-val { font-size: 1.8rem; font-weight: 800; color: var(--green); margin: 12px 0; }
-        .meta-text { color: var(--text-gray); font-size: 0.85rem; }
+        .proj-val { font-size: 1.8rem; font-weight: 900; color: var(--green); margin: 10px 0; }
 
-        .btn-action { padding: 15px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; text-transform: uppercase; width: 100%; transition: 0.2s; font-family: 'Outfit'; }
+        .btn-action { padding: 15px; border-radius: 8px; cursor: pointer; border: none; font-weight: 900; text-transform: uppercase; width: 100%; transition: 0.2s; font-family: 'Roboto'; }
         .btn-save { background: var(--green); color: white; margin-top: 15px; }
         
-        .history-list { margin-top: 15px; }
         .empty-history { border: 2px dashed var(--gray); border-radius: 16px; padding: 50px; text-align: center; color: var(--text-gray); font-size: 1.2rem; }
+        .history-item { background: var(--card); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--gray); margin-bottom: 10px; }
+        .btn-delete { background: var(--red); color: white; width: 32px; height: 32px; border-radius: 50%; border: none; cursor: pointer; font-weight: bold; }
 
         .footer-thanks { text-align: center; margin: 60px 0 20px; padding: 40px 20px; background: var(--card); border-radius: 20px; border: 1px solid var(--gray); }
-        .escalar-text { color: var(--text-gray); margin: 15px auto; max-width: 600px; font-size: 1rem; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -117,7 +105,7 @@
     <div class="header">
         <div class="brand">
             <h1><span>Precific</span>Ecom</h1>
-            <span style="font-size: 0.75rem; color: #888888; font-weight: 600;">By Eron Vasconcelos</span>
+            <span style="font-size: 0.75rem; color: #888888; font-weight: 700;">By Eron Vasconcelos</span>
         </div>
         <div style="display: flex; gap: 10px;">
             <button class="btn-new-top" onclick="novoProjeto()">+ NOVO</button>
@@ -139,7 +127,7 @@
                 <input type="text" id="nomeProd" placeholder="Ex: Produto A">
                 <div class="input-grid" style="margin-top:15px;">
                     <div><label>Custo Produto</label><input type="number" id="custoProd" oninput="calcular()"></div>
-                    <div><label>Frete (Envio)</label><input type="number" id="frete" oninput="calcular()"></div>
+                    <div><label>Frete</label><input type="number" id="frete" oninput="calcular()"></div>
                 </div>
                 <div class="input-grid">
                     <div><label>Importação (%)</label><input type="number" id="impImp" oninput="calcular()"></div>
@@ -173,7 +161,7 @@
 
         <div>
             <div class="result-main">
-                <label style="color: var(--orange); font-weight: 800; font-size: 0.8rem; letter-spacing: 1.5px;">PREÇO DE VENDA DEFINIDO</label>
+                <label style="color: var(--orange); font-weight: 900; font-size: 0.8rem; letter-spacing: 1.5px;">PREÇO DE VENDA DEFINIDO</label>
                 <div class="editable-price-container">
                     <span id="inputSinal" class="currency-input-label">R$</span>
                     <input type="number" id="precoVenda" oninput="calcular()" placeholder="0,00">
@@ -183,7 +171,7 @@
                     <span id="resSinal" class="currency-label">R$</span>
                     <div id="resLucro" class="big-price">0,00</div>
                 </div>
-                <span class="lucro-sub">(LUCRO ESTIMADO)</span>
+                <span style="font-size: 0.8rem; color: var(--green); font-weight: 700; display: block; margin-top: -5px;">(LUCRO ESTIMADO)</span>
                 
                 <div id="resMargem" class="margem-badge">Margem Final: 0.0%</div>
             </div>
@@ -207,11 +195,11 @@
     <div id="historicoLista" class="history-list"></div>
 
     <div class="footer-thanks">
-        <h2 style="color: var(--orange); margin: 0; font-weight: 800;">Obrigado por utilizar o PrecificEcom!</h2>
-        <p class="escalar-text">Ferramenta desenvolvida para ajudar empreendedores a escalarem com lucro real e sem dores de cabeça.</p>
-        <button class="btn-action" style="background: var(--green); color: white; max-width: 320px; margin-top: 20px;" onclick="fazerPix()">APOIAR O PROJETO (VIA PIX)</button>
-        <div style="font-size: 0.75rem; color: var(--text-gray); margin-top: 25px; font-weight: 600;">CNPJ: 49.276.400/0001-13</div>
-        <p id="pixStatus" style="font-size: 0.75rem; color: var(--green); margin-top: 10px; font-weight: bold;"></p>
+        <h2 style="color: var(--orange); margin: 0; font-weight: 900;">Obrigado por utilizar o PrecificEcom!</h2>
+        <p style="color: var(--text-gray); margin: 15px auto; max-width: 600px; font-size: 1rem;">Ferramenta desenvolvida para ajudar empreendedores a escalarem com lucro real e sem dores de cabeça.</p>
+        <button class="btn-action" style="background: var(--green); color: white; max-width: 320px; margin-top: 15px;" onclick="fazerPix()">APOIAR O PROJETO (VIA PIX)</button>
+        <div style="font-size: 0.75rem; color: var(--text-gray); margin-top: 25px; font-weight: 700;">CNPJ: 49.276.400/0001-13</div>
+        <p id="pixStatus" style="font-size: 0.8rem; color: var(--green); margin-top: 10px; font-weight: 900;"></p>
     </div>
 </div>
 
@@ -222,13 +210,17 @@
 
     function toggleTheme() {
         const b = document.body;
-        b.getAttribute('data-theme') === 'light' ? b.removeAttribute('data-theme') : b.setAttribute('data-theme', 'light');
+        const theme = b.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        theme === 'light' ? b.setAttribute('data-theme', 'light') : b.removeAttribute('data-theme');
+        localStorage.setItem('theme', theme);
     }
+
+    if (localStorage.getItem('theme') === 'light') document.body.setAttribute('data-theme', 'light');
 
     function fazerPix() {
         navigator.clipboard.writeText("b8e85c5f-973c-4a64-8d9b-7b26e5f620fe").then(() => {
             document.getElementById('pixStatus').innerText = "CHAVE PIX COPIADA!";
-            alert("Chave Pix copiada!");
+            setTimeout(() => document.getElementById('pixStatus').innerText = "", 3000);
         });
     }
 
@@ -269,16 +261,14 @@
         document.getElementById('detBreakEven').innerText = `${s} ${breakEven.toFixed(2).replace('.', ',')}`;
         document.getElementById('detLucroUnit').innerText = `${s} ${lucro.toFixed(2).replace('.', ',')}`;
 
-        // Os 6 quadros de projeção conforme imagem
         const escalas = [30, 150, 300, 1500, 3000, 10000];
         document.getElementById('gridProj').innerHTML = escalas.map(q => {
             const lT = lucro * q;
-            const metaDia = Math.ceil(q / 30);
             return `
                 <div class="proj-card">
                     <small>${q} VENDAS/MÊS</small>
                     <div class="proj-val" style="color:${lT >= 0 ? 'var(--green)' : 'var(--red)'}">${s} ${lT.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
-                    <div class="meta-text">Média de ${metaDia} pedidos/dia</div>
+                    <div class="meta-text">Média de ${Math.ceil(q/30)} pedidos/dia</div>
                 </div>`;
         }).join('');
     }
@@ -286,14 +276,20 @@
     function salvarHistorico() {
         const nome = document.getElementById('nomeProd').value || "Produto";
         const item = { id: Date.now(), nome, lucro: document.getElementById('resLucro').innerText, moeda: document.getElementById('resSinal').innerText, data: new Date().toLocaleDateString() };
-        let lista = JSON.parse(localStorage.getItem('precific_db') || '[]');
+        let lista = JSON.parse(localStorage.getItem('precific_final_v3') || '[]');
         lista.unshift(item);
-        localStorage.setItem('precific_db', JSON.stringify(lista));
+        localStorage.setItem('precific_final_v3', JSON.stringify(lista));
+        renderHistorico();
+    }
+
+    function excluirItem(id) {
+        let lista = JSON.parse(localStorage.getItem('precific_final_v3') || '[]');
+        localStorage.setItem('precific_final_v3', JSON.stringify(lista.filter(i => i.id !== id)));
         renderHistorico();
     }
 
     function renderHistorico() {
-        const lista = JSON.parse(localStorage.getItem('precific_db') || '[]');
+        const lista = JSON.parse(localStorage.getItem('precific_final_v3') || '[]');
         const div = document.getElementById('historicoLista');
         if (lista.length === 0) {
             div.innerHTML = '<div class="empty-history">Nenhum produto salvo no histórico.</div>';
@@ -302,22 +298,24 @@
         div.innerHTML = lista.map(i => `
             <div class="history-item">
                 <div><strong>${i.nome}</strong><br><small>${i.data}</small></div>
-                <div style="color:var(--green); font-weight:bold;">${i.moeda} ${i.lucro}</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <strong style="color:var(--green)">${i.moeda} ${i.lucro}</strong>
+                    <button class="btn-delete" onclick="excluirItem(${i.id})">X</button>
+                </div>
             </div>`).join('');
     }
 
-    function novoProjeto() { if(confirm("Limpar tudo?")) location.reload(); }
-    
     function exportarCSV() {
-        const lista = JSON.parse(localStorage.getItem('precific_db') || '[]');
+        const lista = JSON.parse(localStorage.getItem('precific_final_v3') || '[]');
         if(lista.length === 0) return alert("Histórico vazio!");
         let csv = "Produto;Lucro;Data\n" + lista.map(i => `${i.nome};${i.lucro};${i.data}`).join("\n");
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
         const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "precificecom.csv";
+        link.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+        link.download = "precificecom_export.csv";
         link.click();
     }
+
+    function novoProjeto() { if(confirm("Zerar campos?")) location.reload(); }
 
     renderHistorico();
     calcular();
