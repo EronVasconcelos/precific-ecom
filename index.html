@@ -9,14 +9,12 @@
     <meta name="theme-color" content="#020617">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3145/3145249.png">
+    <link rel="apple-touch-icon" href="logo-svg.svg">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* FUNDO AZUL MARINHO COM DEGRADÊ SUAVE */
             --bg: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
-            /* QUADROS AZUL SUAVE TRANSLÚCIDO */
             --card: rgba(30, 41, 59, 0.7); 
             --orange: #ff6600;
             --white: #ffffff; 
@@ -68,11 +66,13 @@
 
         select#moeda, .theme-toggle, .btn-new-top, .btn-export {
             height: 42px; display: flex; align-items: center; justify-content: center; padding: 0 15px;
-            border-radius: 8px; font-weight: bold; border: 1px solid var(--gray); background: var(--input-bg); color: var(--text-main); cursor: pointer;
+            border-radius: 8px; font-weight: bold; font-size: 0.85rem; box-sizing: border-box;
+            border: 1px solid var(--gray); background: var(--input-bg); color: var(--text-main); cursor: pointer;
         }
 
         .btn-new-top { background: var(--green); color: white; border: none; text-transform: uppercase; }
         .btn-export { color: var(--orange); border-color: var(--orange); text-transform: uppercase; }
+        .theme-toggle { width: 42px; padding: 0; font-size: 1.1rem; }
 
         .btn-group { display: flex; gap: 10px; margin-top: 10px; }
         .btn-sug { flex: 1; background: var(--input-bg); border: 1px solid var(--orange); color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 0.8rem; }
@@ -86,9 +86,6 @@
         .lucro-label { font-size: 0.8rem; font-weight: 600; color: var(--green); margin-top: -5px; margin-bottom: 25px; display: block; }
         
         .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray); }
-        
-        .comp-bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 20px 0; background: var(--gray); }
-        .comp-item { height: 100%; transition: width 0.4s ease; }
 
         .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 25px; }
         .proj-card { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--gray); text-align: center; }
@@ -105,6 +102,8 @@
         .btn-delete { background: var(--red); color: white; width: 30px; height: 30px; border-radius: 50%; border: none; cursor: pointer; font-weight: bold; }
 
         .footer-thanks { text-align: center; margin: 60px 0 20px; padding: 40px 20px; background: var(--card); border-radius: 20px; border: 1px solid var(--gray); }
+        .pix-info { font-size: 0.75rem; color: var(--text-gray); margin-top: 20px; font-weight: 600; line-height: 1.8; }
+        .legal-footer { text-align: center; padding: 20px; color: var(--text-gray); font-size: 0.7rem; border-top: 1px solid var(--gray); letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
@@ -203,7 +202,6 @@
 
     <div class="footer-thanks">
         <h2 style="color: var(--orange); margin-top:0;">Obrigado por utilizar o PrecificEcom!</h2>
-        <p style="color: var(--text-gray); max-width: 600px; margin: 15px auto;">Ferramenta desenvolvida para ajudar empreendedores a escalarem com lucro real.</p>
         <button class="btn-action btn-pix" onclick="fazerPix()">APOIAR O PROJETO (VIA PIX)</button>
         <div class="pix-info">
             CNPJ: 49.276.400/0001-13 <br>
@@ -218,9 +216,10 @@
 </div>
 
 <script>
-    // Registro do Service Worker (Opcional para PWA)
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
+        });
     }
 
     function toggleTheme() {
